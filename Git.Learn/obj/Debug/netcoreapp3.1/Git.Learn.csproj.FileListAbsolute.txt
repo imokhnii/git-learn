@@ -1,0 +1,13 @@
+E:\EProjects\Mentorship\git-learn\Git.Learn\bin\Debug\netcoreapp3.1\Git.Learn.exe
+E:\EProjects\Mentorship\git-learn\Git.Learn\bin\Debug\netcoreapp3.1\Git.Learn.deps.json
+E:\EProjects\Mentorship\git-learn\Git.Learn\bin\Debug\netcoreapp3.1\Git.Learn.runtimeconfig.json
+E:\EProjects\Mentorship\git-learn\Git.Learn\bin\Debug\netcoreapp3.1\Git.Learn.runtimeconfig.dev.json
+E:\EProjects\Mentorship\git-learn\Git.Learn\bin\Debug\netcoreapp3.1\Git.Learn.dll
+E:\EProjects\Mentorship\git-learn\Git.Learn\bin\Debug\netcoreapp3.1\Git.Learn.pdb
+E:\EProjects\Mentorship\git-learn\Git.Learn\obj\Debug\netcoreapp3.1\Git.Learn.csprojAssemblyReference.cache
+E:\EProjects\Mentorship\git-learn\Git.Learn\obj\Debug\netcoreapp3.1\Git.Learn.AssemblyInfoInputs.cache
+E:\EProjects\Mentorship\git-learn\Git.Learn\obj\Debug\netcoreapp3.1\Git.Learn.AssemblyInfo.cs
+E:\EProjects\Mentorship\git-learn\Git.Learn\obj\Debug\netcoreapp3.1\Git.Learn.csproj.CoreCompileInputs.cache
+E:\EProjects\Mentorship\git-learn\Git.Learn\obj\Debug\netcoreapp3.1\Git.Learn.dll
+E:\EProjects\Mentorship\git-learn\Git.Learn\obj\Debug\netcoreapp3.1\Git.Learn.pdb
+E:\EProjects\Mentorship\git-learn\Git.Learn\obj\Debug\netcoreapp3.1\Git.Learn.genruntimeconfig.cache

@@ -6,7 +6,7 @@ namespace Git.Learn
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Test git stuff");
+            Console.WriteLine("Test git conflict");
             Console.ReadLine();
         }
     }
