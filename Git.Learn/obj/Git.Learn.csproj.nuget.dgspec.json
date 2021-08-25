@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\EProjects\\Mentorship\\git-learn\\Git.Learn\\Git.Learn.csproj": {}
+    "D:\\clone1\\git-learn\\Git.Learn\\Git.Learn.csproj": {}
   },
   "projects": {
-    "E:\\EProjects\\Mentorship\\git-learn\\Git.Learn\\Git.Learn.csproj": {
+    "D:\\clone1\\git-learn\\Git.Learn\\Git.Learn.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\EProjects\\Mentorship\\git-learn\\Git.Learn\\Git.Learn.csproj",
+        "projectUniqueName": "D:\\clone1\\git-learn\\Git.Learn\\Git.Learn.csproj",
         "projectName": "Git.Learn",
-        "projectPath": "E:\\EProjects\\Mentorship\\git-learn\\Git.Learn\\Git.Learn.csproj",
-        "packagesPath": "C:\\Users\\Ihor\\.nuget\\packages\\",
-        "outputPath": "E:\\EProjects\\Mentorship\\git-learn\\Git.Learn\\obj\\",
+        "projectPath": "D:\\clone1\\git-learn\\Git.Learn\\Git.Learn.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "D:\\clone1\\git-learn\\Git.Learn\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Ihor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
