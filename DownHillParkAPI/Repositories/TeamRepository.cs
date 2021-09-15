@@ -1,4 +1,5 @@
-﻿using DownHillParkAPI.Models;
+﻿using DownHillParkAPI.Data;
+using DownHillParkAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,10 @@ namespace DownHillParkAPI.Repositories
         void Remove(int id);
 
     }
-    public class TeamRepository
+    public class TeamRepository : ITeamRepository
     {
-        private readonly ApplicationContext db;
-        public TeamRepository(ApplicationContext db)
+        private readonly DownHillParkAPIContext db;
+        public TeamRepository(DownHillParkAPIContext db)
         {
             this.db = db;
         }

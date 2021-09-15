@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DownHillParkAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,11 @@ namespace DownHillParkAPI.Data
         public DownHillParkAPIContext(DbContextOptions<DownHillParkAPIContext> options)
             : base(options)
         {
+
         }
+
+        public DbSet<Bike> Bikes { get; set; }
+        public DbSet<Team> Teams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

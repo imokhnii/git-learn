@@ -1,4 +1,5 @@
-﻿using DownHillParkAPI.Models;
+﻿using DownHillParkAPI.Data;
+using DownHillParkAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,10 @@ namespace DownHillParkAPI.Repositories
         void Update(Bike bike);
         void Remove(int id);
     }
-    public class BikeRepository
+    public class BikeRepository : IBikeRepository
     {
-        private readonly ApplicationContext db;
-        public BikeRepository(ApplicationContext db)
+        private readonly DownHillParkAPIContext db;
+        public BikeRepository(DownHillParkAPIContext db)
         {
             this.db = db;
         }
@@ -33,7 +34,7 @@ namespace DownHillParkAPI.Repositories
         }
         public Bike FindById(int id)
         {
-            return db.Bikes.Where(a => a.Id == id).Single();
+            return (Bike)db.Bikes.Where(a => a.Id == id).Single();
         }
         public Bike FindByUser(User user)
         {

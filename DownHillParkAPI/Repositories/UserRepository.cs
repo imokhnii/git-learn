@@ -1,4 +1,5 @@
-﻿using DownHillParkAPI.Models;
+﻿using DownHillParkAPI.Data;
+using DownHillParkAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,45 +20,45 @@ namespace DownHillParkAPI.Repositories
     }
     public class UserRepository : IUserRepository
     {
-        private readonly ApplicationContext db;
-        public UserRepository(ApplicationContext db)
+        private readonly DownHillParkAPIContext db;
+        public UserRepository(DownHillParkAPIContext db)
         {
             this.db = db;
         }
+
         public void Add(User user)
         {
-            db.Users.Add(user);
-            db.SaveChanges();
-        }
-        public IEnumerable<User> GetAll()
-        {
-            return db.Users;
-        }
-        public User FindById(int id)
-        {
-            return db.Users.Where(a => a.Id == id).Single();
-        }
-        public User FindByFullName(string firstname, string lastname)
-        {
-            return db.Users.Where(a => a.firstName == firstname && a.lastName == lastname).Single();
-        }
-        public User FindByBike(Bike bike)
-        {
-            return db.Users.Where(a => a.Bike == bike).Single();
-        }
-        public void Remove(int id)
-        {
-            db.Users.Remove(db.Users.Find(id));
-            db.SaveChanges();
-        }
-        public void Update(User user)
-        {
-            var Item = db.Users.Find(user.Id);
-            Item.firstName = user.firstName;
-            Item.lastName = user.lastName;
-            Item.Team = user.Team;
-            db.SaveChanges();
+            
         }
 
+        public User FindByBike(Bike bike)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User FindByFullName(string firstname, string lastname)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User FindById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

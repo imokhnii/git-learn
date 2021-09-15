@@ -44,7 +44,7 @@ namespace DownHillParkAPI.Controllers
             }
             return new ObjectResult(item);
         }
-        
+
         [HttpGet]
         public IActionResult GetByUser(User user)
         {
