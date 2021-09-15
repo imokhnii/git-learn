@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Identity\IdentityHostingStartup.cs" />
     <Compile Remove="Controllers\UserController.cs" />
+    <Compile Remove="Repositories\UserRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

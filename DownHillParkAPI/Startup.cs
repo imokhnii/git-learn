@@ -39,10 +39,10 @@ namespace DownHillParkAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DownHillParkAPI", Version = "v1" });
             });
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DownHillParkAPIContext>();
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<DownHillParkAPIContext>();
 
             services.AddMvc();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IBikeRepository, BikeRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
         }
