@@ -34,15 +34,15 @@ namespace DownHillParkAPI
         {
             services.AddDbContext<DownHillParkAPIContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DownHillParkAPIContextConnection")));
-            services.AddControllers();
+            services.AddControllersWithViews();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DownHillParkAPI", Version = "v1" });
             });
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<DownHillParkAPIContext>();
 
-            services.AddMvc();
+            //services.AddMvc();
             services.AddScoped<IBikeRepository, BikeRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
         }
@@ -59,14 +59,18 @@ namespace DownHillParkAPI
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+            
             app.UseRouting();
-
+            
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

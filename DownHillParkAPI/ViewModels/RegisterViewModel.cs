@@ -40,11 +40,9 @@ namespace DownHillParkAPI.ViewModels
         [Display(Name = "Country")]
         public string Country { get; set; }
 
-        [Required]
         [Display(Name = "Bike")]
         public Bike Bike { get; set; }
 
-        [Required]
         [Display(Name = "Team")]
         public Team Team { get; set; }
     }

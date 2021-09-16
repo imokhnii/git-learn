@@ -13,8 +13,9 @@ namespace DownHillParkAPI.Models
         public string lastName { get; set; }
         public int Year { get; set; }
         public string Country { get; set; }
-        public Bike Bike { get; set; }
-        public Team Team { get; set; }
+        public virtual ICollection<Bike> Bikes { get; set; }
+        public virtual Team Team { get; set; }
+        public int? TeamId { get; set; }
 
     }
 }
