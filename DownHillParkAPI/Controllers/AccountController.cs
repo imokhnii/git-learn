@@ -28,9 +28,9 @@ namespace DownHillParkAPI.Controllers
             return View();
         }
         [HttpPost("/token")]
-        public IActionResult Token(string username, string password)
+        public async Task<IActionResult> TokenAsync(string username, string password)
         {
-            var identity = GetIdentity(username, password);
+            var identity = await GetIdentityAsync(username, password);
             if (identity == null)
             {
                 return BadRequest(new { errorText = "Invalid username or password." });
@@ -55,10 +55,11 @@ namespace DownHillParkAPI.Controllers
 
             return Json(response);
         }
-        private ClaimsIdentity GetIdentity(string username, string password)
-        { 
-            User user = _userManager.FirstOrDefault(x => x.UserName == username && x.Password == password);
-            if (user != null)
+        private async Task<ClaimsIdentity> GetIdentityAsync(string username, string password)
+        {
+            User user = _userManager.Users.FirstOrDefault(x => x.UserName == username);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, password,false);
+            if (user != null && result == Microsoft.AspNetCore.Identity.SignInResult.Success)
             {
                 var claims = new List<Claim>
                 {
