@@ -1,4 +1,5 @@
-using DownHillParkAPI.Models;
+﻿using DownHillParkAPI.Models;
+using DownHillParkAPI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -17,6 +18,9 @@ using System.Threading.Tasks;
 using DownHillParkAPI.Repositories;
 using DownHillParkAPI.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using TokenApp;
 
 namespace DownHillParkAPI
 {
@@ -34,6 +38,30 @@ namespace DownHillParkAPI
         {
             services.AddDbContext<DownHillParkAPIContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DownHillParkAPIContextConnection")));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = true;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            
+                            ValidateIssuer = true,
+                            
+                            ValidIssuer = AuthOptions.ISSUER,
+
+                            
+                            ValidateAudience = true,
+                            
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            
+                            ValidateLifetime = true,
+
+                            
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            
+                            ValidateIssuerSigningKey = true,
+                        };
+                    });
             services.AddControllersWithViews();
             services.AddSwaggerGen(c =>
             {
