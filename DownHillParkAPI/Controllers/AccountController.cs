@@ -81,7 +81,7 @@ namespace DownHillParkAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, firstName = model.firstName, lastName = model.lastName, Year = model.Year, Country = model.Country  };
+                User user = new User { Email = model.Email, UserName = model.Email, firstName = model.firstName, lastName = model.lastName, Year = model.Year, Country = model.Country, Role = "User"  };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

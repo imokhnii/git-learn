@@ -67,12 +67,13 @@ namespace DownHillParkAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DownHillParkAPI", Version = "v1" });
             });
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddEntityFrameworkStores<DownHillParkAPIContext>();
 
             //services.AddMvc();
             services.AddScoped<IBikeRepository, BikeRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddScoped<ICompetitionRepository, CompetitionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

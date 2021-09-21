@@ -19,6 +19,7 @@ namespace DownHillParkAPI.Data
 
         public DbSet<Bike> Bikes { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Competition> Competitions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -32,6 +33,9 @@ namespace DownHillParkAPI.Data
             builder.Entity<User>()
                 .HasMany(u => u.Bikes)
                 .WithOne(b => b.User);
+            builder.Entity<User>()
+                .HasOne(c => c.CurrentCompetition)
+                .WithMany(u => u.Participants);
 
         }
     }

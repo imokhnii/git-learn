@@ -4,14 +4,16 @@ using DownHillParkAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DownHillParkAPI.Migrations
 {
     [DbContext(typeof(DownHillParkAPIContext))]
-    partial class DownHillParkAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20210921111632_AddedCompetitions")]
+    partial class AddedCompetitions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,11 +308,11 @@ namespace DownHillParkAPI.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<int?>("CompetitionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CurrentCompetitionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
@@ -327,7 +329,7 @@ namespace DownHillParkAPI.Migrations
                     b.Property<string>("lastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("CompetitionId");
+                    b.HasIndex("CurrentCompetitionId");
 
                     b.HasIndex("TeamId");
 
@@ -398,7 +400,7 @@ namespace DownHillParkAPI.Migrations
                 {
                     b.HasOne("DownHillParkAPI.Models.Competition", "CurrentCompetition")
                         .WithMany("Participants")
-                        .HasForeignKey("CompetitionId");
+                        .HasForeignKey("CurrentCompetitionId");
 
                     b.HasOne("DownHillParkAPI.Models.Team", "Team")
                         .WithMany("Users")
