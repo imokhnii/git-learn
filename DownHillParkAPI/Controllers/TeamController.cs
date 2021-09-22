@@ -13,9 +13,9 @@ namespace DownHillParkAPI.Controllers
     {
         public TeamController(ITeamRepository teams)
         {
-            Teams = teams;
+            _teams = teams;
         }
-        public ITeamRepository Teams { get; set; }
+        public ITeamRepository _teams { get; set; }
 
         [HttpPost]
         public IActionResult Create([FromBody] Team item)
@@ -24,20 +24,20 @@ namespace DownHillParkAPI.Controllers
             {
                 return BadRequest();
             }
-            Teams.Add(item);
+            _teams.Add(item);
             return CreatedAtRoute("GetItem", new { id = item.Id }, item);
         }
         
         [HttpGet]
         public IEnumerable<Team> GetAll()
         {
-            return Teams.GetAll();
+            return _teams.GetAll();
         }
         
         [HttpGet]
         public IActionResult GetById(int id)
         {
-            var item = Teams.FindById(id);
+            var item = _teams.FindById(id);
             if (item == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace DownHillParkAPI.Controllers
         [HttpGet]
         public IActionResult GetByName(string name)
         {
-            var item = Teams.FindByName(name);
+            var item = _teams.FindByName(name);
             if (item == null)
             {
                 return NotFound();
@@ -57,13 +57,13 @@ namespace DownHillParkAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var item = Teams.FindById(id);
+            var item = _teams.FindById(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            Teams.Remove(id);
+            _teams.Remove(id);
             return new NoContentResult();
         }
     }

@@ -1,5 +1,4 @@
 ﻿using DownHillParkAPI.Models;
-using DownHillParkAPI.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;

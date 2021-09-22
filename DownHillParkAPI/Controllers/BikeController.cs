@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace DownHillParkAPI.Controllers
 {
-    [Route("api/bikes/[action]")]
+    [Route("api/_bikes/[action]")]
     public class BikeController : ControllerBase
     {
         public BikeController(IBikeRepository bikes)
         {
-            Bikes = bikes;
+            _bikes = bikes;
         }
-        public IBikeRepository Bikes { get; set; }
+        public IBikeRepository _bikes { get; set; }
         
         [HttpPost]
         public IActionResult Create([FromBody] Bike item)
@@ -24,20 +24,20 @@ namespace DownHillParkAPI.Controllers
             {
                 return BadRequest();
             }
-            Bikes.Add(item);
+            _bikes.Add(item);
             return CreatedAtRoute("GetItem", new { id = item.Id }, item);
         }
 
         [HttpGet]
         public IEnumerable<Bike> GetAll()
         {
-            return Bikes.GetAll();
+            return _bikes.GetAll();
         }
 
         [HttpGet]
         public IActionResult GetById(int id)
         {
-            var item = Bikes.FindById(id);
+            var item = _bikes.FindById(id);
             if (item == null)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace DownHillParkAPI.Controllers
         [HttpGet]
         public IActionResult GetByUser(User user)
         {
-            var item = Bikes.FindByUser(user);
+            var item = _bikes.FindByUser(user);
             if (item == null)
             {
                 return NotFound();
@@ -64,13 +64,13 @@ namespace DownHillParkAPI.Controllers
                 return BadRequest();
             }
 
-            var bike = Bikes.FindById(id);
+            var bike = _bikes.FindById(id);
             if (bike == null)
             {
                 return NotFound();
             }
 
-            Bikes.Update(item);
+            _bikes.Update(item);
             return new NoContentResult();
         }
 
@@ -82,7 +82,7 @@ namespace DownHillParkAPI.Controllers
                 return BadRequest();
             }
 
-            var bike = Bikes.FindById(id);
+            var bike = _bikes.FindById(id);
             if (bike == null)
             {
                 return NotFound();
@@ -90,20 +90,20 @@ namespace DownHillParkAPI.Controllers
 
             item.Id = bike.Id;
 
-            Bikes.Update(item);
+            _bikes.Update(item);
             return new NoContentResult();
         }
         
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var item = Bikes.FindById(id);
+            var item = _bikes.FindById(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            Bikes.Remove(id);
+            _bikes.Remove(id);
             return new NoContentResult();
         }
     }

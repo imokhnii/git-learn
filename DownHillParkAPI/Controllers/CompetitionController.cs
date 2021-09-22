@@ -15,9 +15,9 @@ namespace DownHillParkAPI.Controllers
     {
         public CompetitionController(ICompetitionRepository competitions)
         {
-            Competitions = competitions;
+            _competitions = competitions;
         }
-        public ICompetitionRepository Competitions { get; set; }
+        public ICompetitionRepository _competitions { get; set; }
         
         [HttpPost]
         public IActionResult Create([FromBody] Competition item)
@@ -26,19 +26,19 @@ namespace DownHillParkAPI.Controllers
             {
                 return BadRequest();
             }
-            Competitions.Create(item);
+            _competitions.Create(item);
             return CreatedAtRoute("GetItem", new { id = item.Id }, item);
         }
 
         [HttpGet]
         public IEnumerable<Competition> GetAll()
         {
-            return Competitions.GetAll();
+            return _competitions.GetAll();
         }
         [HttpGet]
         public IActionResult GetById(int id)
         {
-            var item = Competitions.FindById(id);
+            var item = _competitions.FindById(id);
             if (item == null)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace DownHillParkAPI.Controllers
         [HttpGet]
         public IActionResult GetByName(string name)
         {
-            var item = Competitions.FindByName(name);
+            var item = _competitions.FindByName(name);
             if (item == null)
             {
                 return NotFound();
@@ -63,7 +63,7 @@ namespace DownHillParkAPI.Controllers
                 return BadRequest();
             }
 
-            var competition = Competitions.FindById(id);
+            var competition = _competitions.FindById(id);
             if (competition == null)
             {
                 return NotFound();
@@ -71,41 +71,41 @@ namespace DownHillParkAPI.Controllers
 
             item.Id = competition.Id;
 
-            Competitions.Update(item);
+            _competitions.Update(item);
             return new NoContentResult();
         }
         [HttpPatch]
         public IActionResult AddParticipant(int id, string UserId)
         {
-            var competition = Competitions.FindById(id);
+            var competition = _competitions.FindById(id);
             if (competition == null)
             {
                 return NotFound();
             }
-            Competitions.AddParticipant(id, UserId);
+            _competitions.AddParticipant(id, UserId);
             return new NoContentResult();
         }
         [HttpPatch]
         public IActionResult RemoveParticipant(int id, string UserId)
         {
-            var competition = Competitions.FindById(id);
+            var competition = _competitions.FindById(id);
             if(competition == null)
             {
                 return NotFound();
             }
-            Competitions.RemoveParticipant(id, UserId);
+            _competitions.RemoveParticipant(id, UserId);
             return new NoContentResult();
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var item = Competitions.FindById(id);
+            var item = _competitions.FindById(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            Competitions.Remove(id);
+            _competitions.Remove(id);
             return new NoContentResult();
         }
     }

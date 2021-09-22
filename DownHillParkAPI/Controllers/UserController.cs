@@ -1,7 +1,9 @@
 ﻿using DownHillParkAPI.Models;
-using DownHillParkAPI.Repositories;
-using Microsoft.AspNetCore.Mvc;
+using DownHillParkAPI.RequestModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,114 +11,45 @@ using System.Threading.Tasks;
 
 namespace DownHillParkAPI.Controllers
 {
-    [Route("api/users/[action]")]
+    [Route("api/[controller]/[action]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
-        public UserController(IUserRepository users)
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            Users = users;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
-        public IUserRepository Users { get; set; }
         
         [HttpPost]
-        public IActionResult Create([FromBody] User item)
+        [Authorize(Roles = "Admin, SuperAdmin")]
+        public async Task<IActionResult> Register([FromBody] RegisterUser model)
         {
-            if (item == null)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-            Users.Add(item);
-            return CreatedAtRoute("GetItem", new { id = item.Id }, item);
-        }
-        
-        [HttpGet]
-        public IEnumerable<User> GetAll()
-        {
-            return Users.GetAll();
-        }
+                var user = new User
+                {
+                    firstName = model.FirstName,
+                    lastName = model.LastName,
+                    Email = model.Email,
+                    UserName = model.Email,
+                    EmailConfirmed = true
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var newUser = await _userManager.FindByEmailAsync(user.Email);
 
-        [HttpGet]
-        public IActionResult GetById(int id)
-        {
-            var item = Users.FindById(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(item);
-        }
+                    await _userManager.AddToRolesAsync(newUser, new[] { "User" });
+                    var data = await _userManager.FindByEmailAsync(model.Email);
+                    return Ok(data);
+                }
 
-        [HttpGet]
-        public IActionResult GetByFullName(string firstname, string lastname)
-        {
-            var item = Users.FindByFullName(firstname,lastname);
-            if (item == null)
-            {
-                return NotFound();
             }
-            return new ObjectResult(item);
-        }
-        
-        [HttpGet]
-        public IActionResult GetByBike(Bike bike)
-        {
-            var item = Users.FindByBike(bike);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(item);
-        }
-        
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] User item)
-        {
-            if (item == null || item.Id != id)
-            {
-                return BadRequest();
-            }
-
-            var user = Users.FindById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            Users.Update(item);
-            return new NoContentResult();
+            return NotFound();
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult Update([FromBody] User item, int id)
-        {
-            if (item == null)
-            {
-                return BadRequest();
-            }
-
-            var user = Users.FindById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            item.Id = user.Id;
-
-            Users.Update(item);
-            return new NoContentResult();
-        }
-        
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var item = Users.FindById(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            Users.Remove(id);
-            return new NoContentResult();
-        }
     }
 }
