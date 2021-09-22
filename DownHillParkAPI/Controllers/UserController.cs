@@ -23,33 +23,7 @@ namespace DownHillParkAPI.Controllers
             _signInManager = signInManager;
         }
         
-        [HttpPost]
-        [Authorize(Roles = "Admin, SuperAdmin")]
-        public async Task<IActionResult> Register([FromBody] RegisterUser model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new User
-                {
-                    firstName = model.FirstName,
-                    lastName = model.LastName,
-                    Email = model.Email,
-                    UserName = model.Email,
-                    EmailConfirmed = true
-                };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    var newUser = await _userManager.FindByEmailAsync(user.Email);
-
-                    await _userManager.AddToRolesAsync(newUser, new[] { "User" });
-                    var data = await _userManager.FindByEmailAsync(model.Email);
-                    return Ok(data);
-                }
-
-            }
-            return NotFound();
-        }
+        
 
     }
 }

@@ -1,4 +1,6 @@
 ﻿using DownHillParkAPI.Models;
+using DownHillParkAPI.RequestModels;
+using Microsoft.AspNetCore.Authorization;
 //using DownHillParkAPI.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +15,8 @@ using TokenApp;
 
 namespace DownHillParkAPI.Controllers
 {
+    [Route("api/[controller]/[action]")]
+    [ApiController]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -22,11 +26,77 @@ namespace DownHillParkAPI.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        //[HttpGet]
-        //public IActionResult Register()
-        //{
-        //    return View();
-        //}
+        
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] RegisterUser model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User
+                {
+                    firstName = model.FirstName,
+                    lastName = model.LastName,
+                    Email = model.Email,
+                    UserName = model.Email,
+                    EmailConfirmed = true
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var newUser = await _userManager.FindByEmailAsync(user.Email);
+
+                    await _userManager.AddToRolesAsync(newUser, new[] { "User" }); //error 500 System.InvalidOperationException: Role USER does not exist.
+                    return Ok(newUser);
+                }
+
+            }
+            return NotFound();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody] LoginUser model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var result =
+                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
+                if (result.Succeeded)
+                {
+
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    await _signInManager.SignInAsync(user, false);
+
+                    if (user != null)
+                    {
+                        return Ok(user);
+                    }
+                }
+
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok(true);
+        }
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> ChangeSelfPassword([FromBody] ChangePassword modal)
+        {
+            var user = await _userManager.FindByEmailAsync(modal.Email);
+            IdentityResult passwordChangeResult = await _userManager.ChangePasswordAsync(user, modal.CurrentPasword, modal.NewPassword);
+            if (passwordChangeResult.Succeeded)
+            {
+                return Ok(passwordChangeResult.Succeeded);
+            }
+
+            return NotFound();
+        }
+
         [HttpPost("/token")]
         public async Task<IActionResult> TokenAsync(string username, string password)
         {
@@ -75,72 +145,5 @@ namespace DownHillParkAPI.Controllers
             // если пользователя не найдено
             return null;
         }
-
-    //    [HttpPost]
-    //    public async Task<IActionResult> Register(RegisterViewModel model)
-    //    {
-    //        if (ModelState.IsValid)
-    //        {
-    //            User user = new User { Email = model.Email, UserName = model.Email, firstName = model.firstName, lastName = model.lastName, Year = model.Year, Country = model.Country, Role = "User"  };
-    //            var result = await _userManager.CreateAsync(user, model.Password);
-    //            if (result.Succeeded)
-    //            {
-    //                // установка куки
-    //                await _signInManager.SignInAsync(user, false);
-    //                return RedirectToAction("Index", "Home");
-    //            }
-    //            else
-    //            {
-    //                foreach (var error in result.Errors)
-    //                {
-    //                    ModelState.AddModelError(string.Empty, error.Description);
-    //                }
-    //            }
-    //        }
-    //        return View(model);
-    //    }
-
-    //    [HttpGet]
-    //    public IActionResult Login(string returnUrl = null)
-    //    {
-    //        return View(new LoginViewModel { ReturnUrl = returnUrl });
-    //    }
-
-    //    [HttpPost]
-    //    [ValidateAntiForgeryToken]
-    //    public async Task<IActionResult> Login(LoginViewModel model)
-    //    {
-    //        if (ModelState.IsValid)
-    //        {
-    //            var result =
-    //                await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-    //            if (result.Succeeded)
-    //            {
-    //                // проверяем, принадлежит ли URL приложению
-    //                if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-    //                {
-    //                    return Redirect(model.ReturnUrl);
-    //                }
-    //                else
-    //                {
-    //                    return RedirectToAction("Index", "Home");
-    //                }
-    //            }
-    //            else
-    //            {
-    //                ModelState.AddModelError("", "Incorrect login and (or) password");
-    //            }
-    //        }
-    //        return View(model);
-    //    }
-
-    //    [HttpPost]
-    //    [ValidateAntiForgeryToken]
-    //    public async Task<IActionResult> Logout()
-    //    {
-    //        // удаляем аутентификационные куки
-    //        await _signInManager.SignOutAsync();
-    //        return RedirectToAction("Index", "Home");
-    //    }
     }
 }

@@ -68,6 +68,7 @@ namespace DownHillParkAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DownHillParkAPI", Version = "v1" });
             });
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<DownHillParkAPIContext>();
 
             //services.AddMvc();
