@@ -4,14 +4,16 @@ using DownHillParkAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DownHillParkAPI.Migrations
 {
     [DbContext(typeof(DownHillParkAPIContext))]
-    partial class DownHillParkAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20210923140804_EditedUserIdInBike")]
+    partial class EditedUserIdInBike
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

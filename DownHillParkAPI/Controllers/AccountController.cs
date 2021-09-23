@@ -21,10 +21,12 @@ namespace DownHillParkAPI.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        //private readonly RoleManager<User> _roleManager;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager /*RoleManager<User> roleManager*/)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            //_roleManager = roleManager;
         }
         
         [HttpPost]

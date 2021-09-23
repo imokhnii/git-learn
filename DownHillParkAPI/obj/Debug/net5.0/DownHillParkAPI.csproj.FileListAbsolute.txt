@@ -143,3 +143,4 @@ C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI\bin\Debug\net5.0\M
 C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI\bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI\bin\Debug\net5.0\DownHillParkAPI.Views.dll
 C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI\obj\Debug\net5.0\DownHillParkAPI.csproj.AssemblyReference.cache

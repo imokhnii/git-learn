@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DownHillParkAPI.Models
+namespace DownHillParkAPI.RequestModels
 {
-    public class Bike
+    public class BikeRequest
     {
-        public int Id { get; set; }
         public string Manufacturer { get; set; }
         public string Model { get; set; }
         public string Country { get; set; }
-        public string UserId { get; set; }
-        public virtual User User { get; set; }
+        public int BikeId { get; set; }
     }
 }

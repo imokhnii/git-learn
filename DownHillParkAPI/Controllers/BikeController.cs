@@ -1,5 +1,6 @@
 ﻿using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
+using DownHillParkAPI.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,36 +9,42 @@ using System.Threading.Tasks;
 
 namespace DownHillParkAPI.Controllers
 {
-    [Route("api/_bikes/[action]")]
+    [Route("api/[controller]/[action]")]
     public class BikeController : ControllerBase
     {
-        public BikeController(IBikeRepository bikes)
+        public BikeController(IBikeRepository bikesmanager)
         {
-            _bikes = bikes;
+            _bikesManager = bikesmanager;
         }
-        public IBikeRepository _bikes { get; set; }
-        
+        public IBikeRepository _bikesManager { get; set; }
+
         [HttpPost]
-        public IActionResult Create([FromBody] Bike item)
+        public IActionResult Create([FromBody] BikeRequest item)
         {
             if (item == null)
             {
                 return BadRequest();
             }
-            _bikes.Add(item);
-            return CreatedAtRoute("GetItem", new { id = item.Id }, item);
+            var bike = new Bike
+            {
+                Manufacturer = item.Manufacturer,
+                Model = item.Model,
+                Country = item.Country
+            };
+            _bikesManager.Add(bike);
+            return CreatedAtRoute("GetItem", new { id = bike.Id }, bike);
         }
 
         [HttpGet]
         public IEnumerable<Bike> GetAll()
         {
-            return _bikes.GetAll();
+            return _bikesManager.GetAll();
         }
 
         [HttpGet]
         public IActionResult GetById(int id)
         {
-            var item = _bikes.FindById(id);
+            var item = _bikesManager.FindById(id);
             if (item == null)
             {
                 return NotFound();
@@ -48,7 +55,7 @@ namespace DownHillParkAPI.Controllers
         [HttpGet]
         public IActionResult GetByUser(User user)
         {
-            var item = _bikes.FindByUser(user);
+            var item = _bikesManager.FindByUser(user);
             if (item == null)
             {
                 return NotFound();
@@ -64,13 +71,13 @@ namespace DownHillParkAPI.Controllers
                 return BadRequest();
             }
 
-            var bike = _bikes.FindById(id);
+            var bike = _bikesManager.FindById(id);
             if (bike == null)
             {
                 return NotFound();
             }
 
-            _bikes.Update(item);
+            _bikesManager.Update(item);
             return new NoContentResult();
         }
 
@@ -82,7 +89,7 @@ namespace DownHillParkAPI.Controllers
                 return BadRequest();
             }
 
-            var bike = _bikes.FindById(id);
+            var bike = _bikesManager.FindById(id);
             if (bike == null)
             {
                 return NotFound();
@@ -90,20 +97,20 @@ namespace DownHillParkAPI.Controllers
 
             item.Id = bike.Id;
 
-            _bikes.Update(item);
+            _bikesManager.Update(item);
             return new NoContentResult();
         }
         
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var item = _bikes.FindById(id);
+            var item = _bikesManager.FindById(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            _bikes.Remove(id);
+            _bikesManager.Remove(id);
             return new NoContentResult();
         }
     }

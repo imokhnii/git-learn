@@ -7,7 +7,6 @@
   <ItemGroup>
     <Compile Remove="Areas\Identity\IdentityHostingStartup.cs" />
     <Compile Remove="Controllers\UsersController.cs" />
-    <Compile Remove="Repositories\UserRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>
