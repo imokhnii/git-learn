@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace DownHillParkAPI.RequestModels
 {
-    public class BikeRequest
+    public class TeamRequest
     {
-        public string Manufacturer { get; set; }
-        public string Model { get; set; }
+        public string Name { get; set; }
         public string Country { get; set; }
     }
 }

@@ -12,8 +12,5 @@ namespace DownHillParkAPI.Models
         public DateTime DateOfStart { get; set; } 
         public DateTime DateOfEnd { get; set; }
         public virtual ICollection<User> Participants { get; set; }
-        public string FirstPlace { get; set; }
-        public string SecondPlace { get; set; }
-        public string ThirdPlace { get; set; }
     }
 }

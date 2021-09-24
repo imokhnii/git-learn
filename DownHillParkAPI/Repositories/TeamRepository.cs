@@ -10,9 +10,9 @@ namespace DownHillParkAPI.Repositories
     public interface ITeamRepository
     {
         void Add(Team team);
+        void Update(Team team);
         IEnumerable<Team> GetAll();
         Team FindById(int id);
-        Team FindByName(string name);
         void Remove(int id);
 
     }
@@ -29,6 +29,11 @@ namespace DownHillParkAPI.Repositories
             db.Teams.Add(team);
             db.SaveChanges();
         }
+        public void Update(Team team)
+        {
+            db.Entry(team).CurrentValues.SetValues(team);
+            db.SaveChanges();
+        }
         public IEnumerable<Team> GetAll()
         {
             return db.Teams;
@@ -36,10 +41,6 @@ namespace DownHillParkAPI.Repositories
         public Team FindById(int id)
         {
             return db.Teams.Where(a => a.Id == id).Single();
-        }
-        public Team FindByName(string name)
-        {
-            return db.Teams.Where(a => a.Name == name).Single();
         }
         public void Remove(int id)
         {

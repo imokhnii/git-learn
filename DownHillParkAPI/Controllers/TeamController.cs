@@ -1,5 +1,6 @@
 ﻿using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
+using DownHillParkAPI.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,59 +12,55 @@ namespace DownHillParkAPI.Controllers
     [Route("api/teams/[action]")]
     public class TeamController : ControllerBase
     {
-        public TeamController(ITeamRepository teams)
+        public TeamController(ITeamRepository teamManager)
         {
-            _teams = teams;
+            _teamManager = teamManager;
         }
-        public ITeamRepository _teams { get; set; }
+        public ITeamRepository _teamManager { get; set; }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Team item)
+        public IActionResult Create([FromBody] TeamRequest item)
         {
             if (item == null)
             {
                 return BadRequest();
             }
-            _teams.Add(item);
-            return CreatedAtRoute("GetItem", new { id = item.Id }, item);
+            var team = new Team
+            {
+                Name = item.Name,
+                Country = item.Country
+            };
+            _teamManager.Add(team);
+            return CreatedAtRoute("GetTeam", new { id = team.Id }, team);
         }
-        
+
         [HttpGet]
         public IEnumerable<Team> GetAll()
         {
-            return _teams.GetAll();
+            return _teamManager.GetAll();
         }
-        
-        [HttpGet]
+
+        [HttpGet("{id}", Name = "GetTeam")]
         public IActionResult GetById(int id)
         {
-            var item = _teams.FindById(id);
+            var item = _teamManager.FindById(id);
             if (item == null)
             {
                 return NotFound();
             }
             return new ObjectResult(item);
         }
-        [HttpGet]
-        public IActionResult GetByName(string name)
-        {
-            var item = _teams.FindByName(name);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(item);
-        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var item = _teams.FindById(id);
+            var item = _teamManager.FindById(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            _teams.Remove(id);
+            _teamManager.Remove(id);
             return new NoContentResult();
         }
     }

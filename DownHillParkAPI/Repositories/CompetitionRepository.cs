@@ -10,13 +10,10 @@ namespace DownHillParkAPI.Repositories
 {
     public interface ICompetitionRepository
     {
-        void Create(Competition competition);
+        Competition Add(Competition competition);
         IEnumerable<Competition> GetAll();
         Competition FindById(int id);
-        Competition FindByName(string name);
         void Update(Competition competition);
-        void AddParticipant(int id, string UserId);
-        void RemoveParticipant(int id, string UserId);
         void Remove(int id);
 
     }
@@ -27,10 +24,11 @@ namespace DownHillParkAPI.Repositories
         {
             this.db = db;
         }
-        public void Create(Competition competition)
+        public Competition Add(Competition competition)
         {
             db.Competitions.Add(competition);
             db.SaveChanges();
+            return competition;
         }
         public IEnumerable<Competition> GetAll()
         {
@@ -40,31 +38,10 @@ namespace DownHillParkAPI.Repositories
         {
             return db.Competitions.Where(a => a.Id == id).Single();
         }
-        public Competition FindByName(string name)
-        {
-            return db.Competitions.Where(a => a.Name == name).Single();
-        }
         public void Update(Competition competition)
         {
-            var Item = db.Competitions.Find(competition.Id);
-            Item.Name = competition.Name;
-            Item.DateOfStart = competition.DateOfStart;
-            Item.DateOfEnd = competition.DateOfEnd;
-            Item.FirstPlace = competition.FirstPlace;
-            Item.SecondPlace = competition.SecondPlace;
-            Item.ThirdPlace = competition.ThirdPlace;
+            db.Entry(competition).CurrentValues.SetValues(competition);
             db.SaveChanges();
-        }
-        public void AddParticipant(int id, string UserId)
-        {
-            var participant = (User)db.Users.Find(UserId);
-            participant.CurrentCompetition = db.Competitions.Find(id);
-            db.SaveChanges();
-        }
-        public void RemoveParticipant(int id, string UserId)//should be fixed later
-        {
-            var competition = FindById(id);
-            competition.Participants.Remove((User)db.Users.Find(UserId));
         }
         public void Remove(int id)
         {

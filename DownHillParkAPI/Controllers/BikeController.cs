@@ -32,7 +32,7 @@ namespace DownHillParkAPI.Controllers
                 Country = item.Country
             };
             _bikesManager.Add(bike);
-            return CreatedAtRoute("GetItem", new { id = bike.Id }, bike);
+            return CreatedAtRoute("GetBike", new { id = bike.Id }, bike);
         }
 
         [HttpGet]
@@ -41,7 +41,7 @@ namespace DownHillParkAPI.Controllers
             return _bikesManager.GetAll();
         }
 
-        [HttpGet]
+        [HttpGet("{id}", Name = "GetBike")]
         public IActionResult GetById(int id)
         {
             var item = _bikesManager.FindById(id);
@@ -50,55 +50,6 @@ namespace DownHillParkAPI.Controllers
                 return NotFound();
             }
             return new ObjectResult(item);
-        }
-
-        [HttpGet]
-        public IActionResult GetByUser(User user)
-        {
-            var item = _bikesManager.FindByUser(user);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(item);
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Bike item)
-        {
-            if (item == null || item.Id != id)
-            {
-                return BadRequest();
-            }
-
-            var bike = _bikesManager.FindById(id);
-            if (bike == null)
-            {
-                return NotFound();
-            }
-
-            _bikesManager.Update(item);
-            return new NoContentResult();
-        }
-
-        [HttpPatch("{id}")]
-        public IActionResult Update([FromBody] Bike item, int id)
-        {
-            if (item == null)
-            {
-                return BadRequest();
-            }
-
-            var bike = _bikesManager.FindById(id);
-            if (bike == null)
-            {
-                return NotFound();
-            }
-
-            item.Id = bike.Id;
-
-            _bikesManager.Update(item);
-            return new NoContentResult();
         }
         
         [HttpDelete("{id}")]

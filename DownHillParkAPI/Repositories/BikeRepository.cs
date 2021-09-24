@@ -13,10 +13,8 @@ namespace DownHillParkAPI.Repositories
         Bike Add(Bike bike);
         IEnumerable<Bike> GetAll();
         Bike FindById(int id);
-        Bike FindByUser(User user);
         void Update(Bike bike);
         void Remove(int id);
-        void SaveChanges();
     }
     public class BikeRepository : IBikeRepository
     {
@@ -39,10 +37,6 @@ namespace DownHillParkAPI.Repositories
         {
             return (Bike)db.Bikes.Where(a => a.Id == id).Single();
         }
-        public Bike FindByUser(User user)
-        {
-            return db.Bikes.Where(a => a.User == user).Single();
-        }
         public void Update(Bike bike)
         {
             db.Entry(bike).CurrentValues.SetValues(bike);
@@ -51,10 +45,6 @@ namespace DownHillParkAPI.Repositories
         public void Remove(int id)
         {
             db.Bikes.Remove(db.Bikes.Find(id));
-            db.SaveChanges();
-        }
-        public void SaveChanges()
-        {
             db.SaveChanges();
         }
     }
