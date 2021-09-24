@@ -40,7 +40,6 @@ namespace DownHillParkAPI.Controllers
                 if (user != null && bike != null)
                 {
                     bike.User = user;
-                    user.Bikes.Add(bike);
                     _bikeManager.Update(bike);
                     return Ok(user);
                 }
@@ -90,7 +89,6 @@ namespace DownHillParkAPI.Controllers
                 if (user != null && competition != null)
                 {
                     user.CompetitionId = CompetitionId;
-                    competition.Participants.Add(user);
                     _competitionManager.Update(competition);
                     return Ok(user);
                 }
