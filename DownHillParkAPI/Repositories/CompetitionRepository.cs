@@ -36,7 +36,7 @@ namespace DownHillParkAPI.Repositories
         }
         public Competition FindById(int id)
         {
-            return db.Competitions.Where(a => a.Id == id).Single();
+            return db.Competitions.Find(id);
         }
         public void Update(Competition competition)
         {

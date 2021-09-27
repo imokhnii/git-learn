@@ -81,6 +81,7 @@ namespace DownHillParkAPI
             services.AddScoped<IBikeRepository, BikeRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ICompetitionRepository, CompetitionRepository>();
+            services.AddScoped<ICompetitionPrizeRepository, CompetitionPrizeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -40,7 +40,7 @@ namespace DownHillParkAPI.Repositories
         }
         public Team FindById(int id)
         {
-            return db.Teams.Where(a => a.Id == id).Single();
+            return db.Teams.Find(id);
         }
         public void Remove(int id)
         {

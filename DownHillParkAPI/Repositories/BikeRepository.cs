@@ -35,7 +35,7 @@ namespace DownHillParkAPI.Repositories
         }
         public Bike FindById(int id)
         {
-            return (Bike)db.Bikes.Where(a => a.Id == id).Single();
+            return db.Bikes.Find(id);
         }
         public void Update(Bike bike)
         {
