@@ -1,4 +1,5 @@
-﻿using DownHillParkAPI.Models;
+﻿using AutoMapper;
+using DownHillParkAPI.Models;
 using DownHillParkAPI.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 //using DownHillParkAPI.ViewModels;
@@ -21,12 +22,12 @@ namespace DownHillParkAPI.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        //private readonly RoleManager<User> _roleManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager /*RoleManager<User> roleManager*/)
+        private readonly IMapper _mapper;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper )
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            //_roleManager = roleManager;
+            _mapper = mapper;
         }
         
         [HttpPost]
@@ -34,14 +35,8 @@ namespace DownHillParkAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User
-                {
-                    firstName = model.FirstName,
-                    lastName = model.LastName,
-                    Email = model.Email,
-                    UserName = model.Email,
-                    EmailConfirmed = true
-                };
+                var user = _mapper.Map<User>(model);
+                user.EmailConfirmed = true;
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

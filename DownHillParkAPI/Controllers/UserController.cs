@@ -95,12 +95,12 @@ namespace DownHillParkAPI.Controllers
             }
             return NotFound();
         }
-        //[HttpGet]
-        //public async Task<User> GetByIdAsync(string UserId)
-        //{
-        //    var user = await _userManager.FindByIdAsync(UserId);
-        //    return user;
-        //}
+        [HttpGet]
+        public async Task<User> GetByIdAsync(string UserId)
+        {
+            var user = await _userManager.FindByIdAsync(UserId);
+            return user;
+        }
 
 
 

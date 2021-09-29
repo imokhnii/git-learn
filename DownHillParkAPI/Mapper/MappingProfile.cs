@@ -20,6 +20,8 @@ namespace DownHillParkAPI.Mapper
             CreateMap<Bike, BikeRequest>();
             CreateMap<TeamRequest, Team>();
             CreateMap<Team, TeamRequest>();
+            CreateMap<RegisterUser, User>().
+                ForMember("UserName", opt => opt.MapFrom(src => src.Email));
         }
     }
 }
