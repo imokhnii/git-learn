@@ -1,4 +1,5 @@
-﻿using DownHillParkAPI.Models;
+﻿using AutoMapper;
+using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
 using Microsoft.AspNetCore.Http;
@@ -14,11 +15,13 @@ namespace DownHillParkAPI.Controllers
     [ApiController]
     public class CompetitionController : Controller
     {
-        public CompetitionController(ICompetitionRepository competitionManager)
+        public CompetitionController(ICompetitionRepository competitionManager, IMapper mapper)
         {
             _competitionManager = competitionManager;
+            _mapper = mapper;
         }
         public ICompetitionRepository _competitionManager { get; set; }
+        public IMapper _mapper;
 
         [HttpPost]
         public IActionResult Create([FromBody] CompetitionRequest item)
@@ -27,12 +30,7 @@ namespace DownHillParkAPI.Controllers
             {
                 return BadRequest();
             }
-            var competition = new Competition
-            {
-                Name = item.Name,
-                DateOfStart = item.DateOfStart,
-                DateOfEnd = item.DateOfEnd
-            };
+            var competition = _mapper.Map<CompetitionRequest, Competition>(item);
             _competitionManager.Add(competition);
             return CreatedAtRoute("GetCompetition", new { id = competition.Id }, competition);
         }

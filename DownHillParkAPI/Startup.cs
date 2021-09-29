@@ -22,6 +22,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TokenApp;
+using AutoMapper;
+using DownHillParkAPI.Controllers;
+using DownHillParkAPI.Mapper;
 
 namespace DownHillParkAPI
 {
@@ -76,6 +79,15 @@ namespace DownHillParkAPI
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<DownHillParkAPIContext>();
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
 
             //services.AddMvc();
             services.AddScoped<IBikeRepository, BikeRepository>();

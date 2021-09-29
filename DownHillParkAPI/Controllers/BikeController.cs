@@ -1,4 +1,5 @@
-﻿using DownHillParkAPI.Models;
+﻿using AutoMapper;
+using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ namespace DownHillParkAPI.Controllers
     [Route("api/[controller]/[action]")]
     public class BikeController : ControllerBase
     {
-        public BikeController(IBikeRepository bikesmanager)
+        public BikeController(IBikeRepository bikesmanager, IMapper mapper)
         {
             _bikesManager = bikesmanager;
+            _mapper = mapper;
         }
         public IBikeRepository _bikesManager { get; set; }
+        public IMapper _mapper;
 
         [HttpPost]
         public IActionResult Create([FromBody] BikeRequest item)
@@ -25,12 +28,7 @@ namespace DownHillParkAPI.Controllers
             {
                 return BadRequest();
             }
-            var bike = new Bike
-            {
-                Manufacturer = item.Manufacturer,
-                Model = item.Model,
-                Country = item.Country
-            };
+            var bike = _mapper.Map<BikeRequest,Bike>(item);
             _bikesManager.Add(bike);
             return CreatedAtRoute("GetBike", new { id = bike.Id }, bike);
         }

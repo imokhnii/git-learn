@@ -1,4 +1,5 @@
-﻿using DownHillParkAPI.Models;
+﻿using AutoMapper;
+using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ namespace DownHillParkAPI.Controllers
     [Route("api/teams/[action]")]
     public class TeamController : ControllerBase
     {
-        public TeamController(ITeamRepository teamManager)
+        public TeamController(ITeamRepository teamManager, IMapper mapper)
         {
             _teamManager = teamManager;
+            _mapper = mapper;
         }
         public ITeamRepository _teamManager { get; set; }
+        public IMapper _mapper;
 
         [HttpPost]
         public IActionResult Create([FromBody] TeamRequest item)
@@ -25,11 +28,7 @@ namespace DownHillParkAPI.Controllers
             {
                 return BadRequest();
             }
-            var team = new Team
-            {
-                Name = item.Name,
-                Country = item.Country
-            };
+            var team = _mapper.Map<TeamRequest, Team>(item);
             _teamManager.Add(team);
             return CreatedAtRoute("GetTeam", new { id = team.Id }, team);
         }

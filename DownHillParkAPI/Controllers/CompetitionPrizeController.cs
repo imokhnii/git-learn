@@ -1,4 +1,5 @@
-﻿using DownHillParkAPI.Models;
+﻿using AutoMapper;
+using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
 using Microsoft.AspNetCore.Http;
@@ -14,13 +15,15 @@ namespace DownHillParkAPI.Controllers
     [ApiController]
     public class CompetitionPrizeController : ControllerBase
     {
-        public CompetitionPrizeController(ICompetitionPrizeRepository prizeManager, ICompetitionRepository competitionManager)
+        public CompetitionPrizeController(ICompetitionPrizeRepository prizeManager, ICompetitionRepository competitionManager, IMapper mapper)
         {
             _prizeManager = prizeManager;
             _competitionManager = competitionManager;
+            _mapper = mapper;
         }
         public ICompetitionPrizeRepository _prizeManager;
         public ICompetitionRepository _competitionManager;
+        public IMapper _mapper;
 
         [HttpPost]
         public IActionResult Create([FromBody] CompetitionPrizeRequest item)
@@ -29,14 +32,14 @@ namespace DownHillParkAPI.Controllers
             {
                 return BadRequest();
             }
-            var prize = new CompetitionPrize
-            {
-                firstPlace = item.firstPlace,
-                secondPlace = item.secondPlace,
-                thirdPlace = item.thirdPlace
-                
-            };
-            _prizeManager.Add(prize);
+            var prize = _mapper.Map<CompetitionPrizeRequest, CompetitionPrize>(item);
+              //{
+              //    firstPlace = item.firstPlace,
+              //    secondPlace = item.secondPlace,
+              //    thirdPlace = item.thirdPlace
+
+              //};
+              _prizeManager.Add(prize);
             return CreatedAtRoute("GetCompetitionPrize", new { id = prize.Id }, prize);
         }
 
