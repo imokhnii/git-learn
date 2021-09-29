@@ -2,6 +2,7 @@
 using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
+using DownHillParkAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,13 +16,11 @@ namespace DownHillParkAPI.Controllers
     [ApiController]
     public class CompetitionController : Controller
     {
-        public CompetitionController(ICompetitionRepository competitionManager, IMapper mapper)
+        public CompetitionController(ICompetitionService competitionService)
         {
-            _competitionManager = competitionManager;
-            _mapper = mapper;
+            _competitionService = competitionService;
         }
-        public ICompetitionRepository _competitionManager { get; set; }
-        public IMapper _mapper;
+        private readonly ICompetitionService _competitionService;
 
         [HttpPost]
         public IActionResult Create([FromBody] CompetitionRequest item)
@@ -30,20 +29,19 @@ namespace DownHillParkAPI.Controllers
             {
                 return BadRequest();
             }
-            var competition = _mapper.Map<CompetitionRequest, Competition>(item);
-            _competitionManager.Add(competition);
+            var competition = _competitionService.Create(item);
             return CreatedAtRoute("GetCompetition", new { id = competition.Id }, competition);
         }
 
         [HttpGet]
         public IEnumerable<Competition> GetAll()
         {
-            return _competitionManager.GetAll();
+            return _competitionService.GetAll();
         }
         [HttpGet("{id}", Name = "GetCompetition")]
         public IActionResult GetById(int id)
         {
-            var item = _competitionManager.FindById(id);
+            var item = _competitionService.FindById(id);
             if (item == null)
             {
                 return NotFound();
@@ -54,13 +52,13 @@ namespace DownHillParkAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var item = _competitionManager.FindById(id);
+            var item = _competitionService.FindById(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            _competitionManager.Remove(id);
+            _competitionService.Delete(id);
             return new NoContentResult();
         }
     }

@@ -2,6 +2,7 @@
 using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
+using DownHillParkAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,11 @@ namespace DownHillParkAPI.Controllers
     [Route("api/teams/[action]")]
     public class TeamController : ControllerBase
     {
-        public TeamController(ITeamRepository teamManager, IMapper mapper)
+        public TeamController(ITeamService teamService)
         {
-            _teamManager = teamManager;
-            _mapper = mapper;
+            _teamService = teamService;
         }
-        public ITeamRepository _teamManager { get; set; }
-        public IMapper _mapper;
+        private readonly ITeamService _teamService;
 
         [HttpPost]
         public IActionResult Create([FromBody] TeamRequest item)
@@ -28,21 +27,20 @@ namespace DownHillParkAPI.Controllers
             {
                 return BadRequest();
             }
-            var team = _mapper.Map<TeamRequest, Team>(item);
-            _teamManager.Add(team);
+            var team = _teamService.Create(item);
             return CreatedAtRoute("GetTeam", new { id = team.Id }, team);
         }
 
         [HttpGet]
         public IEnumerable<Team> GetAll()
         {
-            return _teamManager.GetAll();
+            return _teamService.GetAll();
         }
 
         [HttpGet("{id}", Name = "GetTeam")]
         public IActionResult GetById(int id)
         {
-            var item = _teamManager.FindById(id);
+            var item = _teamService.FindById(id);
             if (item == null)
             {
                 return NotFound();
@@ -53,13 +51,12 @@ namespace DownHillParkAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var item = _teamManager.FindById(id);
+            var item = _teamService.FindById(id);
             if (item == null)
             {
                 return NotFound();
             }
-
-            _teamManager.Remove(id);
+            _teamService.Delete(id);
             return new NoContentResult();
         }
     }

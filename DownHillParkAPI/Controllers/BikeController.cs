@@ -2,6 +2,7 @@
 using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
+using DownHillParkAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,11 @@ namespace DownHillParkAPI.Controllers
     [Route("api/[controller]/[action]")]
     public class BikeController : ControllerBase
     {
-        public BikeController(IBikeRepository bikesmanager, IMapper mapper)
+        public BikeController(IBikeService bikeService)
         {
-            _bikesManager = bikesmanager;
-            _mapper = mapper;
+            _bikeService = bikeService;
         }
-        public IBikeRepository _bikesManager { get; set; }
-        public IMapper _mapper;
+        private readonly IBikeService _bikeService;
 
         [HttpPost]
         public IActionResult Create([FromBody] BikeRequest item)
@@ -28,21 +27,20 @@ namespace DownHillParkAPI.Controllers
             {
                 return BadRequest();
             }
-            var bike = _mapper.Map<BikeRequest,Bike>(item);
-            _bikesManager.Add(bike);
+            var bike = _bikeService.Create(item);
             return CreatedAtRoute("GetBike", new { id = bike.Id }, bike);
         }
 
         [HttpGet]
         public IEnumerable<Bike> GetAll()
         {
-            return _bikesManager.GetAll();
+            return _bikeService.GetAll();
         }
 
         [HttpGet("{id}", Name = "GetBike")]
         public IActionResult GetById(int id)
         {
-            var item = _bikesManager.FindById(id);
+            var item = _bikeService.FindById(id);
             if (item == null)
             {
                 return NotFound();
@@ -53,13 +51,13 @@ namespace DownHillParkAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var item = _bikesManager.FindById(id);
+            var item = _bikeService.FindById(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            _bikesManager.Remove(id);
+            _bikeService.Delete(id);
             return new NoContentResult();
         }
     }

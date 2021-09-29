@@ -9,7 +9,7 @@ namespace DownHillParkAPI.Repositories
 {
     public interface ITeamRepository
     {
-        void Add(Team team);
+        Team Add(Team team);
         void Update(Team team);
         IEnumerable<Team> GetAll();
         Team FindById(int id);
@@ -24,10 +24,11 @@ namespace DownHillParkAPI.Repositories
             this.db = db;
         }
 
-        public void Add(Team team)
+        public Team Add(Team team)
         {
             db.Teams.Add(team);
             db.SaveChanges();
+            return team;
         }
         public void Update(Team team)
         {

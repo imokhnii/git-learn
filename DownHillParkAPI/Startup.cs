@@ -25,6 +25,7 @@ using TokenApp;
 using AutoMapper;
 using DownHillParkAPI.Controllers;
 using DownHillParkAPI.Mapper;
+using DownHillParkAPI.Infrastructure;
 
 namespace DownHillParkAPI
 {
@@ -79,6 +80,8 @@ namespace DownHillParkAPI
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<DownHillParkAPIContext>();
+            
+            
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -88,12 +91,11 @@ namespace DownHillParkAPI
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
+            services.AddDownHillParkServices();
+
 
             //services.AddMvc();
-            services.AddScoped<IBikeRepository, BikeRepository>();
-            services.AddScoped<ITeamRepository, TeamRepository>();
-            services.AddScoped<ICompetitionRepository, CompetitionRepository>();
-            services.AddScoped<ICompetitionPrizeRepository, CompetitionPrizeRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,7 @@
 ﻿using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
+using DownHillParkAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -16,18 +17,10 @@ namespace DownHillParkAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
-        private readonly IBikeRepository _bikeManager;
-        private readonly ITeamRepository _teamManager;
-        private readonly ICompetitionRepository _competitionManager;
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, IBikeRepository bikeManager, ITeamRepository teamManager, ICompetitionRepository competitionManager)
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _bikeManager = bikeManager;
-            _teamManager = teamManager;
-            _competitionManager = competitionManager;
+            _userService = userService;
         }
 
         [HttpPost]
@@ -35,12 +28,9 @@ namespace DownHillParkAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var bike = _bikeManager.FindById(BikeId);
-                var user = await _userManager.FindByIdAsync(UserId);
-                if (user != null && bike != null)
+                var user = await _userService.AddBikeToUserAsync(BikeId, UserId);
+                if (user != null)
                 {
-                    bike.User = user;
-                    _bikeManager.Update(bike);
                     return Ok(user);
                 }
             }
@@ -52,12 +42,9 @@ namespace DownHillParkAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var team = _teamManager.FindById(TeamId);
-                var user = await _userManager.FindByIdAsync(UserId);
-                if (user != null && team != null)
+                var user = await _userService.AddTeamToUserAsync(TeamId, UserId);
+                if (user != null)
                 {
-                    user.TeamId = TeamId;
-                    _teamManager.Update(team);
                     return Ok(user);
                 }
             }
@@ -68,11 +55,9 @@ namespace DownHillParkAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByIdAsync(UserId);
-                if (user != null && Country != null)
+                var user = _userService.AddCountryToUserAsync(Country, UserId);
+                if (user != null)
                 {
-                    user.Country = Country;
-                    await _userManager.UpdateAsync(user);
                     return Ok(user);
                 }
             }
@@ -84,22 +69,23 @@ namespace DownHillParkAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByIdAsync(UserId);
-                var competition = _competitionManager.FindById(CompetitionId);
-                if (user != null && competition != null)
+                var user = await _userService.AddUserToCompetitionAsync(CompetitionId, UserId);
+                if (user != null)
                 {
-                    user.CompetitionId = CompetitionId;
-                    _competitionManager.Update(competition);
                     return Ok(user);
                 }
             }
             return NotFound();
         }
         [HttpGet]
-        public async Task<User> GetByIdAsync(string UserId)
+        public async Task<IActionResult> GetByIdAsync(string UserId)
         {
-            var user = await _userManager.FindByIdAsync(UserId);
-            return user;
+            var user = await _userService.FindByIdAsync(UserId);
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            return NotFound();
         }
 
 
