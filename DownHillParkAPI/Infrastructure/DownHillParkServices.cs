@@ -18,6 +18,7 @@ namespace DownHillParkAPI.Infrastructure
             services.AddScoped<ICompetitionPrizeService, CompetitionPrizeService>();
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAccountService, AccountService>();
             return services;
         }
     }
