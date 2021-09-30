@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,12 @@ namespace DownHillParkAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly ILogger logger;
+        public UserController(IUserService userService, ILoggerFactory loggerFactory)
         {
             _userService = userService;
+            logger = loggerFactory.CreateLogger("FileLogger");
+            logger.LogInformation("Entered {0} Controller", "User");
         }
 
         [HttpPost]
@@ -55,7 +59,7 @@ namespace DownHillParkAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _userService.AddCountryToUserAsync(Country, UserId);
+                var user = await _userService.AddCountryToUserAsync(Country, UserId);
                 if (user != null)
                 {
                     return Ok(user);
@@ -81,6 +85,9 @@ namespace DownHillParkAPI.Controllers
         public async Task<IActionResult> GetByIdAsync(string UserId)
         {
             var user = await _userService.FindByIdAsync(UserId);
+
+            logger.LogInformation("User: {0}", UserId);
+
             if (user != null)
             {
                 return Ok(user);

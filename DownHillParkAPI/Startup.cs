@@ -26,6 +26,8 @@ using AutoMapper;
 using DownHillParkAPI.Controllers;
 using DownHillParkAPI.Mapper;
 using DownHillParkAPI.Infrastructure;
+using DownHillParkAPI.Logger;
+using System.IO;
 
 namespace DownHillParkAPI
 {
@@ -99,7 +101,7 @@ namespace DownHillParkAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole> roleManager, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -125,6 +127,9 @@ namespace DownHillParkAPI
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            
+            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+            
         }
     }
 }

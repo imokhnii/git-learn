@@ -18,7 +18,6 @@ namespace DownHillParkAPI.Models
         public virtual Competition CurrentCompetition { get; set; }
         public int? CompetitionId { get; set; }
         public int? TeamId { get; set; }
-        public string Role { get; set; }
 
     }
 }

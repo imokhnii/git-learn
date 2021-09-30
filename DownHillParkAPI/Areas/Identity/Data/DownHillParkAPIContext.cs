@@ -6,6 +6,7 @@ using DownHillParkAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace DownHillParkAPI.Data
 {
@@ -16,7 +17,6 @@ namespace DownHillParkAPI.Data
         {
 
         }
-
         public DbSet<Bike> Bikes { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Competition> Competitions { get; set; }
