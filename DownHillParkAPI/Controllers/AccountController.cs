@@ -37,13 +37,14 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _accountService.RegisterAsync(model);
-                logger.LogInformation("Registered User: {0}", user.Id);
                 if(user != null)
                 {
+                    logger.LogInformation("Registered User: {0}", user.Id);
                     return Ok(user);
                 }
 
             }
+            logger.LogInformation("Failed at registering User {0}", model.Email);
             return NotFound();
         }
         
@@ -54,21 +55,23 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _accountService.LoginAsync(model);
-                logger.LogInformation("Logged in User: {0}", user.Id);
                 if(user != null)
                 {
+                    logger.LogInformation("Logged in User: {0}", user.Id);
                     return Ok(user);
                 }
 
             }
+            logger.LogInformation("Failed at login User {0}", model.Email);
             return NotFound();
         }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             await _accountService.LogoutAsync();
-            logger.LogInformation("Logged out");
+            logger.LogInformation("Logged out User: {0}", userid);
             return Ok(true);
         }
         [HttpPut]
@@ -76,11 +79,12 @@ namespace DownHillParkAPI.Controllers
         public async Task<IActionResult> ChangeSelfPassword([FromBody] ChangePassword modal)
         {
             IdentityResult passwordChangeResult = await _accountService.ChangeSelfPasswordAsync(modal);
-            logger.LogInformation("Changed password for User: {0}", modal.Email);
             if (passwordChangeResult.Succeeded)
             {
+                logger.LogInformation("Changed password for User: {0}", modal.Email);
                 return Ok(passwordChangeResult.Succeeded);
             }
+            logger.LogInformation("Failed at changing password for User: {0}", modal.Email);
             return NotFound();
         }
 
@@ -90,6 +94,7 @@ namespace DownHillParkAPI.Controllers
             var identity = await _accountService.GetIdentityAsync(username, password);
             if (identity == null)
             {
+                logger.LogInformation("Failed at creating token for User: {0}", username);
                 return BadRequest(new { errorText = "Invalid username or password." });
             }
 

@@ -29,6 +29,7 @@ namespace DownHillParkAPI.Controllers
         {
             if (item == null)
             {
+                logger.LogInformation("Failed at creating new Bike {0}", item.Manufacturer + ' ' + item.Model);
                 return BadRequest();
             }
             var bike = _bikeService.Create(item);
@@ -47,11 +48,12 @@ namespace DownHillParkAPI.Controllers
         public IActionResult GetById(int id)
         {
             var item = _bikeService.FindById(id);
-            logger.LogInformation("Got by id Bike: {0}", id);
             if (item == null)
             {
+                logger.LogInformation("Failed at getting Bike {0}", id);
                 return NotFound();
             }
+            logger.LogInformation("Got by id Bike: {0}", id);
             return new ObjectResult(item);
         }
         
@@ -61,6 +63,7 @@ namespace DownHillParkAPI.Controllers
             var item = _bikeService.FindById(id);
             if (item == null)
             {
+                logger.LogInformation("Failed at deleting Bike {0}", id);
                 return NotFound();
             }
 

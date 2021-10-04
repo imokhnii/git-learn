@@ -29,6 +29,7 @@ namespace DownHillParkAPI.Controllers
         {
             if (item == null)
             {
+                logger.LogInformation("Failed at creating new Team {0}",item.Name);
                 return BadRequest();
             }
             var team = _teamService.Create(item);
@@ -47,11 +48,12 @@ namespace DownHillParkAPI.Controllers
         public IActionResult GetById(int id)
         {
             var item = _teamService.FindById(id);
-            logger.LogInformation("Got by id Team: {0}", id);
             if (item == null)
             {
+                logger.LogInformation("Failed at getting Team {0}", id);
                 return NotFound();
             }
+            logger.LogInformation("Got by id Team: {0}", id);
             return new ObjectResult(item);
         }
 
@@ -61,6 +63,7 @@ namespace DownHillParkAPI.Controllers
             var item = _teamService.FindById(id);
             if (item == null)
             {
+                logger.LogInformation("Failed at deleting Team {0}", id);
                 return NotFound();
             }
             _teamService.Delete(id);

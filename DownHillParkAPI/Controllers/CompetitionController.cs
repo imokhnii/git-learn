@@ -31,6 +31,7 @@ namespace DownHillParkAPI.Controllers
         {
             if (item == null)
             {
+                logger.LogInformation("Failed at creating new Competition {0}", item.Name);
                 return BadRequest();
             }
             var competition = _competitionService.Create(item);
@@ -48,11 +49,12 @@ namespace DownHillParkAPI.Controllers
         public IActionResult GetById(int id)
         {
             var item = _competitionService.FindById(id);
-            logger.LogInformation("Got by id Competition: {0}", id);
             if (item == null)
             {
+                logger.LogInformation("Failed at getting Competition {0}", id);
                 return NotFound();
             }
+            logger.LogInformation("Got by id Competition: {0}", id);
             return new ObjectResult(item);
         }
         
@@ -62,6 +64,7 @@ namespace DownHillParkAPI.Controllers
             var item = _competitionService.FindById(id);
             if (item == null)
             {
+                logger.LogInformation("Failed at deleting Competition {0}", id);
                 return NotFound();
             }
 

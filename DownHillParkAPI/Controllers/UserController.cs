@@ -33,12 +33,13 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userService.AddBikeToUserAsync(BikeId, UserId);
-                logger.LogInformation("Bike {0} added to User: {1}", BikeId, UserId);
                 if (user != null)
                 {
+                    logger.LogInformation("Bike {0} added to User: {1}", BikeId, UserId);
                     return Ok(user);
                 }
             }
+            logger.LogInformation("Failed at adding Bike {0} to User: {1}", BikeId, UserId);
             return NotFound();
         }
 
@@ -48,12 +49,13 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userService.AddTeamToUserAsync(TeamId, UserId);
-                logger.LogInformation("User: {0} added to Team {1}", UserId, TeamId);
                 if (user != null)
                 {
+                    logger.LogInformation("User: {0} added to Team {1}", UserId, TeamId);
                     return Ok(user);
                 }
             }
+            logger.LogInformation("Failed at adding User: {0} to Team {1}", UserId, TeamId);
             return NotFound();
         }
         [HttpPost]
@@ -62,12 +64,13 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userService.AddCountryToUserAsync(Country, UserId);
-                logger.LogInformation("Country {0} added to User: {1}", Country, UserId);
                 if (user != null)
                 {
+                    logger.LogInformation("Country {0} added to User: {1}", Country, UserId);
                     return Ok(user);
                 }
             }
+            logger.LogInformation("Failed at adding Country {0} to User: {1}", Country, UserId);
             return NotFound();
         }
 
@@ -77,25 +80,25 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userService.AddUserToCompetitionAsync(CompetitionId, UserId);
-                logger.LogInformation("User: {0} added to competition {1}", UserId, CompetitionId);
                 if (user != null)
                 {
+                    logger.LogInformation("User: {0} added to Competition {1}", UserId, CompetitionId);
                     return Ok(user);
                 }
             }
+            logger.LogInformation("Failed at adding User: {0} to Competition {1}", UserId, CompetitionId);
             return NotFound();
         }
         [HttpGet]
         public async Task<IActionResult> GetByIdAsync(string UserId)
         {
             var user = await _userService.FindByIdAsync(UserId);
-
-            logger.LogInformation("User: {0}", UserId);
-
             if (user != null)
             {
+                logger.LogInformation("Got by id User: {0}", UserId);
                 return Ok(user);
             }
+            logger.LogInformation("Failed at getting User: {0}", UserId);
             return NotFound();
         }
 

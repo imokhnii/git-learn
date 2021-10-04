@@ -31,6 +31,7 @@ namespace DownHillParkAPI.Controllers
         {
             if (item == null)
             {
+                logger.LogInformation("Failed at creating new Competition Prize");
                 return BadRequest();
             }
             var prize = _prizeService.Create(item);
@@ -44,12 +45,13 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var prize = _prizeService.AddPrizesToCompetition(CompetitionId, PrizeId);
-                logger.LogInformation("Prize {0} added to Competition {1}", PrizeId, CompetitionId);
                 if (prize != null)
                 {
+                    logger.LogInformation("Prize {0} added to Competition {1}", PrizeId, CompetitionId);
                     return Ok(prize);
                 }
             }
+            logger.LogInformation("Failed at adding Prize {0} to Competition {1}", PrizeId, CompetitionId);
             return NotFound();
         }
 
@@ -57,11 +59,12 @@ namespace DownHillParkAPI.Controllers
         public IActionResult GetById(int id)
         {
             var item = _prizeService.FindById(id);
-            logger.LogInformation("Got by id Prize{0}", id);
             if (item == null)
             {
+                logger.LogInformation("Failed at getting Prize {0}", id);
                 return NotFound();
             }
+            logger.LogInformation("Got by id Prize{0}", id);
             return new ObjectResult(item);
         }
 
@@ -71,6 +74,7 @@ namespace DownHillParkAPI.Controllers
             var item = _prizeService.FindById(id);
             if (item == null)
             {
+                logger.LogInformation("Failed at deleting Prize{0}", id);
                 return NotFound();
             }
 
