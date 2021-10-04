@@ -5,6 +5,7 @@ using DownHillParkAPI.RequestModels;
 using DownHillParkAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,14 @@ namespace DownHillParkAPI.Controllers
     [ApiController]
     public class CompetitionPrizeController : ControllerBase
     {
-        public CompetitionPrizeController(ICompetitionPrizeService prizeService)
+        public CompetitionPrizeController(ICompetitionPrizeService prizeService, ILoggerFactory loggerFactory)
         {
             _prizeService = prizeService;
+            logger = loggerFactory.CreateLogger("FileLogger");
+            logger.LogInformation("Entered {0} Controller", "CompetitionPrize");
         }
         private readonly ICompetitionPrizeService _prizeService;
+        private readonly ILogger logger;
 
         [HttpPost]
         public IActionResult Create([FromBody] CompetitionPrizeRequest item)
@@ -30,6 +34,7 @@ namespace DownHillParkAPI.Controllers
                 return BadRequest();
             }
             var prize = _prizeService.Create(item);
+            logger.LogInformation("Created Prize: {0}", prize.Id);
             return CreatedAtRoute("GetCompetitionPrize", new { id = prize.Id }, prize);
         }
 
@@ -39,6 +44,7 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var prize = _prizeService.AddPrizesToCompetition(CompetitionId, PrizeId);
+                logger.LogInformation("Prize {0} added to Competition {1}", PrizeId, CompetitionId);
                 if (prize != null)
                 {
                     return Ok(prize);
@@ -51,6 +57,7 @@ namespace DownHillParkAPI.Controllers
         public IActionResult GetById(int id)
         {
             var item = _prizeService.FindById(id);
+            logger.LogInformation("Got by id Prize{0}", id);
             if (item == null)
             {
                 return NotFound();
@@ -68,6 +75,7 @@ namespace DownHillParkAPI.Controllers
             }
 
             _prizeService.Delete(id);
+            logger.LogInformation("Deleted Prize {0}", id);
             return new NoContentResult();
         }
     }

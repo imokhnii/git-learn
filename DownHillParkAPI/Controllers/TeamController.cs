@@ -4,6 +4,7 @@ using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
 using DownHillParkAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,14 @@ namespace DownHillParkAPI.Controllers
     [Route("api/teams/[action]")]
     public class TeamController : ControllerBase
     {
-        public TeamController(ITeamService teamService)
+        public TeamController(ITeamService teamService, ILoggerFactory loggerFactory)
         {
             _teamService = teamService;
+            logger = loggerFactory.CreateLogger("FileLogger");
+            logger.LogInformation("Entered {0} Controller", "Team");
         }
         private readonly ITeamService _teamService;
+        private readonly ILogger logger;
 
         [HttpPost]
         public IActionResult Create([FromBody] TeamRequest item)
@@ -28,12 +32,14 @@ namespace DownHillParkAPI.Controllers
                 return BadRequest();
             }
             var team = _teamService.Create(item);
+            logger.LogInformation("Created Team: {0}", team.Id);
             return CreatedAtRoute("GetTeam", new { id = team.Id }, team);
         }
 
         [HttpGet]
         public IEnumerable<Team> GetAll()
         {
+            logger.LogInformation("Got all teams");
             return _teamService.GetAll();
         }
 
@@ -41,6 +47,7 @@ namespace DownHillParkAPI.Controllers
         public IActionResult GetById(int id)
         {
             var item = _teamService.FindById(id);
+            logger.LogInformation("Got by id Team: {0}", id);
             if (item == null)
             {
                 return NotFound();
@@ -57,6 +64,7 @@ namespace DownHillParkAPI.Controllers
                 return NotFound();
             }
             _teamService.Delete(id);
+            logger.LogInformation("Deleted Team: {0}", id);
             return new NoContentResult();
         }
     }

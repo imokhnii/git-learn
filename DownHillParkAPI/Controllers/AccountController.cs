@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 //using DownHillParkAPI.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,12 @@ namespace DownHillParkAPI.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly ILogger logger;
+        public AccountController(IAccountService accountService, ILoggerFactory loggerFactory)
         {
             _accountService = accountService;
+            logger = loggerFactory.CreateLogger("FileLogger");
+            logger.LogInformation("Entered {0} Controller", "Account");
         }
         
         [HttpPost]
@@ -33,6 +37,7 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _accountService.RegisterAsync(model);
+                logger.LogInformation("Registered User: {0}", user.Id);
                 if(user != null)
                 {
                     return Ok(user);
@@ -49,6 +54,7 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _accountService.LoginAsync(model);
+                logger.LogInformation("Logged in User: {0}", user.Id);
                 if(user != null)
                 {
                     return Ok(user);
@@ -62,6 +68,7 @@ namespace DownHillParkAPI.Controllers
         public async Task<IActionResult> Logout()
         {
             await _accountService.LogoutAsync();
+            logger.LogInformation("Logged out");
             return Ok(true);
         }
         [HttpPut]
@@ -69,6 +76,7 @@ namespace DownHillParkAPI.Controllers
         public async Task<IActionResult> ChangeSelfPassword([FromBody] ChangePassword modal)
         {
             IdentityResult passwordChangeResult = await _accountService.ChangeSelfPasswordAsync(modal);
+            logger.LogInformation("Changed password for User: {0}", modal.Email);
             if (passwordChangeResult.Succeeded)
             {
                 return Ok(passwordChangeResult.Succeeded);
@@ -101,7 +109,7 @@ namespace DownHillParkAPI.Controllers
                 access_token = encodedJwt,
                 username = identity.Name
             };
-
+            logger.LogInformation("Created token for User: {0}", username);
             return Json(response);
         }
         

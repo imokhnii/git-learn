@@ -33,6 +33,7 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userService.AddBikeToUserAsync(BikeId, UserId);
+                logger.LogInformation("Bike {0} added to User: {1}", BikeId, UserId);
                 if (user != null)
                 {
                     return Ok(user);
@@ -47,6 +48,7 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userService.AddTeamToUserAsync(TeamId, UserId);
+                logger.LogInformation("User: {0} added to Team {1}", UserId, TeamId);
                 if (user != null)
                 {
                     return Ok(user);
@@ -60,6 +62,7 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userService.AddCountryToUserAsync(Country, UserId);
+                logger.LogInformation("Country {0} added to User: {1}", Country, UserId);
                 if (user != null)
                 {
                     return Ok(user);
@@ -74,6 +77,7 @@ namespace DownHillParkAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userService.AddUserToCompetitionAsync(CompetitionId, UserId);
+                logger.LogInformation("User: {0} added to competition {1}", UserId, CompetitionId);
                 if (user != null)
                 {
                     return Ok(user);

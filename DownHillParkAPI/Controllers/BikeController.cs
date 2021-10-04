@@ -4,6 +4,7 @@ using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
 using DownHillParkAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,14 @@ namespace DownHillParkAPI.Controllers
     [Route("api/[controller]/[action]")]
     public class BikeController : ControllerBase
     {
-        public BikeController(IBikeService bikeService)
+        public BikeController(IBikeService bikeService, ILoggerFactory loggerFactory)
         {
             _bikeService = bikeService;
+            logger = loggerFactory.CreateLogger("FileLogger");
+            logger.LogInformation("Entered {0} Controller", "Bike");
         }
         private readonly IBikeService _bikeService;
+        private readonly ILogger logger;
 
         [HttpPost]
         public IActionResult Create([FromBody] BikeRequest item)
@@ -28,12 +32,14 @@ namespace DownHillParkAPI.Controllers
                 return BadRequest();
             }
             var bike = _bikeService.Create(item);
+            logger.LogInformation("Created Bike: {0}", bike.Id);
             return CreatedAtRoute("GetBike", new { id = bike.Id }, bike);
         }
 
         [HttpGet]
         public IEnumerable<Bike> GetAll()
         {
+            logger.LogInformation("Got all bikes");
             return _bikeService.GetAll();
         }
 
@@ -41,6 +47,7 @@ namespace DownHillParkAPI.Controllers
         public IActionResult GetById(int id)
         {
             var item = _bikeService.FindById(id);
+            logger.LogInformation("Got by id Bike: {0}", id);
             if (item == null)
             {
                 return NotFound();
@@ -58,6 +65,7 @@ namespace DownHillParkAPI.Controllers
             }
 
             _bikeService.Delete(id);
+            logger.LogInformation("Deleted Bike: {0}", id);
             return new NoContentResult();
         }
     }

@@ -5,6 +5,7 @@ using DownHillParkAPI.RequestModels;
 using DownHillParkAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,14 @@ namespace DownHillParkAPI.Controllers
     [ApiController]
     public class CompetitionController : Controller
     {
-        public CompetitionController(ICompetitionService competitionService)
+        public CompetitionController(ICompetitionService competitionService, ILoggerFactory loggerFactory)
         {
             _competitionService = competitionService;
+            logger = loggerFactory.CreateLogger("FileLogger");
+            logger.LogInformation("Entered {0} Controller", "Competition");
         }
         private readonly ICompetitionService _competitionService;
+        private readonly ILogger logger;
 
         [HttpPost]
         public IActionResult Create([FromBody] CompetitionRequest item)
@@ -30,18 +34,21 @@ namespace DownHillParkAPI.Controllers
                 return BadRequest();
             }
             var competition = _competitionService.Create(item);
+            logger.LogInformation("Created Competition: {0}", competition.Id);
             return CreatedAtRoute("GetCompetition", new { id = competition.Id }, competition);
         }
 
         [HttpGet]
         public IEnumerable<Competition> GetAll()
         {
+            logger.LogInformation("Got all competitions");
             return _competitionService.GetAll();
         }
         [HttpGet("{id}", Name = "GetCompetition")]
         public IActionResult GetById(int id)
         {
             var item = _competitionService.FindById(id);
+            logger.LogInformation("Got by id Competition: {0}", id);
             if (item == null)
             {
                 return NotFound();
@@ -59,6 +66,7 @@ namespace DownHillParkAPI.Controllers
             }
 
             _competitionService.Delete(id);
+            logger.LogInformation("Deleted Competition: {0}", id);
             return new NoContentResult();
         }
     }

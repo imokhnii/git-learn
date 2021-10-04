@@ -1,8 +1,5 @@
 Application started. Press Ctrl+C to shut down.
 Hosting environment: Development
 Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
-Application started. Press Ctrl+C to shut down.
-Hosting environment: Development
-Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
-Entered User Controller
-User: 112a77af-4ced-4558-a90f-1e7bb0eff9cc
+Entered Account Controller
+Created token for User: kekus@net.ua
