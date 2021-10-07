@@ -11,11 +11,11 @@ namespace DownHillParkAPI.Services
 {
     public interface IBikeService
     {
-        Bike Create(BikeRequest item);
+        Task<Bike> CreateAsync(BikeRequest item);
         IEnumerable<Bike> GetAll();
-        Bike FindById(int id);
-        void Update(Bike bike);
-        void Delete(int id);
+        Task<Bike> FindByIdAsync(int id);
+        Task UpdateAsync(Bike bike);
+        Task DeleteAsync(int id);
     }
     public class BikeService : IBikeService
     {
@@ -27,9 +27,9 @@ namespace DownHillParkAPI.Services
         private readonly IBikeRepository _bikeManager;
         private readonly IMapper _mapper;
 
-        public Bike Create(BikeRequest item)
+        public async Task<Bike> CreateAsync(BikeRequest item)
         {
-            var bike = _bikeManager.Add(
+            var bike = await _bikeManager.AddAsync(
                 _mapper.Map<Bike>(item));
             return bike;
         }
@@ -39,19 +39,19 @@ namespace DownHillParkAPI.Services
             return _bikeManager.GetAll();
         }
 
-        public Bike FindById(int id)
+        public async Task<Bike> FindByIdAsync(int id)
         {
-            return _bikeManager.FindById(id);
+            return await _bikeManager.FindByIdAsync(id);
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            _bikeManager.Remove(id);
+           await _bikeManager.RemoveAsync(id);
         }
 
-        public void Update(Bike bike)
+        public async Task UpdateAsync(Bike bike)
         {
-            _bikeManager.Update(bike);
+            await _bikeManager.UpdateAsync(bike);
         }
     }
 }

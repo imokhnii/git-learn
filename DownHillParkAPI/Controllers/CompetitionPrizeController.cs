@@ -27,24 +27,24 @@ namespace DownHillParkAPI.Controllers
         private readonly ILogger logger;
 
         [HttpPost]
-        public IActionResult Create([FromBody] CompetitionPrizeRequest item)
+        public async Task<IActionResult> Create([FromBody] CompetitionPrizeRequest item)
         {
             if (item == null)
             {
                 logger.LogInformation("Failed at creating new Competition Prize");
                 return BadRequest();
             }
-            var prize = _prizeService.Create(item);
+            var prize = await _prizeService.CreateAsync(item);
             logger.LogInformation("Created Prize: {0}", prize.Id);
             return CreatedAtRoute("GetCompetitionPrize", new { id = prize.Id }, prize);
         }
 
         [HttpPost]
-        public IActionResult AddPrizesToCompetition(int CompetitionId, int PrizeId)
+        public async Task<IActionResult> AddPrizesToCompetition(int CompetitionId, int PrizeId)
         {
             if (ModelState.IsValid)
             {
-                var prize = _prizeService.AddPrizesToCompetition(CompetitionId, PrizeId);
+                var prize = await _prizeService.AddPrizesToCompetitionAsync(CompetitionId, PrizeId);
                 if (prize != null)
                 {
                     logger.LogInformation("Prize {0} added to Competition {1}", PrizeId, CompetitionId);
@@ -56,9 +56,9 @@ namespace DownHillParkAPI.Controllers
         }
 
         [HttpGet("{id}", Name = "GetCompetitionPrize")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var item = _prizeService.FindById(id);
+            var item = await _prizeService.FindByIdAsync(id);
             if (item == null)
             {
                 logger.LogInformation("Failed at getting Prize {0}", id);
@@ -69,16 +69,16 @@ namespace DownHillParkAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var item = _prizeService.FindById(id);
+            var item = await _prizeService.FindByIdAsync(id);
             if (item == null)
             {
                 logger.LogInformation("Failed at deleting Prize{0}", id);
                 return NotFound();
             }
 
-            _prizeService.Delete(id);
+            await _prizeService.DeleteAsync(id);
             logger.LogInformation("Deleted Prize {0}", id);
             return new NoContentResult();
         }

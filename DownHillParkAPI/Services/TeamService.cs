@@ -11,11 +11,11 @@ namespace DownHillParkAPI.Services
 {
     public interface ITeamService
     {
-        Team Create(TeamRequest item);
+        Task<Team> CreateAsync(TeamRequest item);
         IEnumerable<Team> GetAll();
-        Team FindById(int id);
-        void Update(Team team);
-        void Delete(int id);
+        Task<Team> FindByIdAsync(int id);
+        Task DeleteAsync(int id);
+        Task UpdateAsync(Team team);
     }
     public class TeamService : ITeamService
     {
@@ -27,9 +27,9 @@ namespace DownHillParkAPI.Services
         private readonly ITeamRepository _teamManager;
         private readonly IMapper _mapper;
 
-        public Team Create(TeamRequest item)
+        public async Task <Team> CreateAsync(TeamRequest item)
         {
-            var team = _teamManager.Add(
+            var team = await _teamManager.AddAsync(
                 _mapper.Map<Team>(item));
             return team;
 
@@ -37,22 +37,22 @@ namespace DownHillParkAPI.Services
 
         public IEnumerable<Team> GetAll()
         {
-            return _teamManager.GetAll();
+            return  _teamManager.GetAll();
         }
 
-        public Team FindById(int id)
+        public async Task<Team> FindByIdAsync(int id)
         {
-            return _teamManager.FindById(id);
+            return await _teamManager.FindByIdAsync(id);
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            _teamManager.Remove(id);
+            await _teamManager.RemoveAsync(id);
         }
 
-        public void Update(Team team)
+        public async Task UpdateAsync(Team team)
         {
-            _teamManager.Update(team);
+            await _teamManager.UpdateAsync(team);
         }
     }
 }

@@ -10,11 +10,11 @@ namespace DownHillParkAPI.Repositories
 {
     public interface IBikeRepository
     {
-        Bike Add(Bike bike);
+        Task<Bike> AddAsync(Bike bike);
         IEnumerable<Bike> GetAll();
-        Bike FindById(int id);
-        void Update(Bike bike);
-        void Remove(int id);
+        Task<Bike> FindByIdAsync(int id);
+        Task UpdateAsync(Bike bike);
+        Task RemoveAsync(int id);
     }
     public class BikeRepository : IBikeRepository
     {
@@ -23,29 +23,29 @@ namespace DownHillParkAPI.Repositories
         {
             this.db = db;
         }
-        public Bike Add(Bike bike)
+        public async Task<Bike> AddAsync(Bike bike)
         {
-            db.Bikes.Add(bike);
-            db.SaveChanges();
+            await db.Bikes.AddAsync(bike);
+            await db.SaveChangesAsync();
             return bike;
         }
         public IEnumerable<Bike> GetAll()
         {
             return db.Bikes;
         }
-        public Bike FindById(int id)
+        public async Task<Bike> FindByIdAsync(int id)
         {
-            return db.Bikes.Find(id);
+            return await db.Bikes.FindAsync(id);
         }
-        public void Update(Bike bike)
+        public async Task UpdateAsync(Bike bike)
         {
             db.Entry(bike).CurrentValues.SetValues(bike);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            db.Bikes.Remove(db.Bikes.Find(id));
-            db.SaveChanges();
+            db.Bikes.Remove(await db.Bikes.FindAsync(id));
+            await db.SaveChangesAsync();
         }
     }
 }

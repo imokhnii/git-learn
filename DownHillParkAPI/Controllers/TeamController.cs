@@ -25,14 +25,14 @@ namespace DownHillParkAPI.Controllers
         private readonly ILogger logger;
 
         [HttpPost]
-        public IActionResult Create([FromBody] TeamRequest item)
+        public async Task <IActionResult> Create([FromBody] TeamRequest item)
         {
             if (item == null)
             {
                 logger.LogInformation("Failed at creating new Team {0}",item.Name);
                 return BadRequest();
             }
-            var team = _teamService.Create(item);
+            var team = await _teamService.CreateAsync(item);
             logger.LogInformation("Created Team: {0}", team.Id);
             return CreatedAtRoute("GetTeam", new { id = team.Id }, team);
         }
@@ -45,9 +45,9 @@ namespace DownHillParkAPI.Controllers
         }
 
         [HttpGet("{id}", Name = "GetTeam")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var item = _teamService.FindById(id);
+            var item = await _teamService.FindByIdAsync(id);
             if (item == null)
             {
                 logger.LogInformation("Failed at getting Team {0}", id);
@@ -58,15 +58,15 @@ namespace DownHillParkAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var item = _teamService.FindById(id);
+            var item = await _teamService.FindByIdAsync(id);
             if (item == null)
             {
                 logger.LogInformation("Failed at deleting Team {0}", id);
                 return NotFound();
             }
-            _teamService.Delete(id);
+            await _teamService.DeleteAsync(id);
             logger.LogInformation("Deleted Team: {0}", id);
             return new NoContentResult();
         }

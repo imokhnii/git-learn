@@ -11,11 +11,11 @@ namespace DownHillParkAPI.Services
 {
     public interface ICompetitionService
     {
-        Competition Create(CompetitionRequest item);
+        Task<Competition> CreateAsync(CompetitionRequest item);
         IEnumerable<Competition> GetAll();
-        Competition FindById(int id);
-        void Update(Competition competition);
-        void Delete(int id);
+        Task<Competition> FindByIdAsync(int id);
+        Task UpdateAsync(Competition competition);
+        Task DeleteAsync(int id);
     }
     public class CompetitionService : ICompetitionService
     {
@@ -27,9 +27,9 @@ namespace DownHillParkAPI.Services
         private readonly ICompetitionRepository _competitionManager;
         private readonly IMapper _mapper;
 
-        public Competition Create(CompetitionRequest item)
+        public async Task<Competition> CreateAsync(CompetitionRequest item)
         {
-            var competition = _competitionManager.Add(
+            var competition = await _competitionManager.AddAsync(
                 _mapper.Map<Competition>(item));
             return competition;
         }
@@ -39,19 +39,19 @@ namespace DownHillParkAPI.Services
             return _competitionManager.GetAll();
         }
 
-        public Competition FindById(int id)
+        public async Task<Competition> FindByIdAsync(int id)
         {
-            return _competitionManager.FindById(id);
+            return await _competitionManager.FindByIdAsync(id);
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            _competitionManager.Remove(id);
+            await _competitionManager.RemoveAsync(id);
         }
 
-        public void Update(Competition competition)
+        public async Task UpdateAsync(Competition competition)
         {
-            _competitionManager.Update(competition);
+            await _competitionManager.UpdateAsync(competition);
         }
     }
 }

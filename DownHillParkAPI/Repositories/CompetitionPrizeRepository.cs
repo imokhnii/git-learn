@@ -9,11 +9,11 @@ namespace DownHillParkAPI.Repositories
 {
     public interface ICompetitionPrizeRepository
     {
-        CompetitionPrize Add(CompetitionPrize prize);
-        public IEnumerable<CompetitionPrize> GetAll();
-        public CompetitionPrize FindById(int id);
-        public void Update(CompetitionPrize prize);
-        void Remove(int id);
+        Task<CompetitionPrize> AddAsync(CompetitionPrize prize);
+        IEnumerable<CompetitionPrize> GetAll();
+        Task<CompetitionPrize> FindByIdAsync(int id);
+        Task UpdateAsync(CompetitionPrize prize);
+        Task RemoveAsync(int id);
     }
     public class CompetitionPrizeRepository : ICompetitionPrizeRepository
     {
@@ -23,10 +23,10 @@ namespace DownHillParkAPI.Repositories
             this.db = db;
         }
 
-        public CompetitionPrize Add(CompetitionPrize prize)
+        public async Task<CompetitionPrize> AddAsync(CompetitionPrize prize)
         {
-            db.CompetitionPrizes.Add(prize);
-            db.SaveChanges();
+            await db.CompetitionPrizes.AddAsync(prize);
+            await db.SaveChangesAsync();
             return prize;
         }
 
@@ -34,19 +34,19 @@ namespace DownHillParkAPI.Repositories
         {
             return db.CompetitionPrizes;
         }
-        public CompetitionPrize FindById(int id)
+        public async Task<CompetitionPrize> FindByIdAsync(int id)
         {
-            return db.CompetitionPrizes.Find(id);
+            return await db.CompetitionPrizes.FindAsync(id);
         }
-        public void Update(CompetitionPrize prize)
+        public async Task UpdateAsync(CompetitionPrize prize)
         {
             db.Entry(prize).CurrentValues.SetValues(prize);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            db.CompetitionPrizes.Remove(db.CompetitionPrizes.Find(id));
-            db.SaveChanges();
+            db.CompetitionPrizes.Remove(await db.CompetitionPrizes.FindAsync(id));
+            await db.SaveChangesAsync();
         }
     }
 }

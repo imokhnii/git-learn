@@ -10,11 +10,11 @@ namespace DownHillParkAPI.Repositories
 {
     public interface ICompetitionRepository
     {
-        Competition Add(Competition competition);
+        Task <Competition> AddAsync(Competition competition);
         IEnumerable<Competition> GetAll();
-        Competition FindById(int id);
-        void Update(Competition competition);
-        void Remove(int id);
+        Task<Competition> FindByIdAsync(int id);
+        Task UpdateAsync(Competition competition);
+        Task RemoveAsync(int id);
 
     }
     public class CompetitionRepository : ICompetitionRepository
@@ -24,29 +24,29 @@ namespace DownHillParkAPI.Repositories
         {
             this.db = db;
         }
-        public Competition Add(Competition competition)
+        public async Task<Competition> AddAsync(Competition competition)
         {
-            db.Competitions.Add(competition);
-            db.SaveChanges();
+            await db.Competitions.AddAsync(competition);
+            await db.SaveChangesAsync();
             return competition;
         }
         public IEnumerable<Competition> GetAll()
         {
             return db.Competitions;
         }
-        public Competition FindById(int id)
+        public async Task<Competition> FindByIdAsync(int id)
         {
-            return db.Competitions.Find(id);
+            return await db.Competitions.FindAsync(id);
         }
-        public void Update(Competition competition)
+        public async Task UpdateAsync(Competition competition)
         {
             db.Entry(competition).CurrentValues.SetValues(competition);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            db.Competitions.Remove(db.Competitions.Find(id));
-            db.SaveChanges();
+            db.Competitions.Remove(await db.Competitions.FindAsync(id));
+            await db.SaveChangesAsync();
         }
     }
 }

@@ -3,7 +3,6 @@ using DownHillParkAPI.Models;
 using DownHillParkAPI.RequestModels;
 using DownHillParkAPI.Services;
 using Microsoft.AspNetCore.Authorization;
-//using DownHillParkAPI.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

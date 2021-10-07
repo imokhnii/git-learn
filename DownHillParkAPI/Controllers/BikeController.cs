@@ -25,14 +25,14 @@ namespace DownHillParkAPI.Controllers
         private readonly ILogger logger;
 
         [HttpPost]
-        public IActionResult Create([FromBody] BikeRequest item)
+        public async Task<IActionResult> Create([FromBody] BikeRequest item)
         {
             if (item == null)
             {
                 logger.LogInformation("Failed at creating new Bike {0}", item.Manufacturer + ' ' + item.Model);
                 return BadRequest();
             }
-            var bike = _bikeService.Create(item);
+            var bike = await _bikeService.CreateAsync(item);
             logger.LogInformation("Created Bike: {0}", bike.Id);
             return CreatedAtRoute("GetBike", new { id = bike.Id }, bike);
         }
@@ -45,9 +45,9 @@ namespace DownHillParkAPI.Controllers
         }
 
         [HttpGet("{id}", Name = "GetBike")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var item = _bikeService.FindById(id);
+            var item = await _bikeService.FindByIdAsync(id);
             if (item == null)
             {
                 logger.LogInformation("Failed at getting Bike {0}", id);
@@ -58,16 +58,16 @@ namespace DownHillParkAPI.Controllers
         }
         
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var item = _bikeService.FindById(id);
+            var item = await _bikeService.FindByIdAsync(id);
             if (item == null)
             {
                 logger.LogInformation("Failed at deleting Bike {0}", id);
                 return NotFound();
             }
 
-            _bikeService.Delete(id);
+            await _bikeService.DeleteAsync(id);
             logger.LogInformation("Deleted Bike: {0}", id);
             return new NoContentResult();
         }

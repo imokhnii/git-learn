@@ -27,14 +27,14 @@ namespace DownHillParkAPI.Controllers
         private readonly ILogger logger;
 
         [HttpPost]
-        public IActionResult Create([FromBody] CompetitionRequest item)
+        public async Task<IActionResult> Create([FromBody] CompetitionRequest item)
         {
             if (item == null)
             {
                 logger.LogInformation("Failed at creating new Competition {0}", item.Name);
                 return BadRequest();
             }
-            var competition = _competitionService.Create(item);
+            var competition = await _competitionService.CreateAsync(item);
             logger.LogInformation("Created Competition: {0}", competition.Id);
             return CreatedAtRoute("GetCompetition", new { id = competition.Id }, competition);
         }
@@ -46,9 +46,9 @@ namespace DownHillParkAPI.Controllers
             return _competitionService.GetAll();
         }
         [HttpGet("{id}", Name = "GetCompetition")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var item = _competitionService.FindById(id);
+            var item = await _competitionService.FindByIdAsync(id);
             if (item == null)
             {
                 logger.LogInformation("Failed at getting Competition {0}", id);
@@ -59,16 +59,16 @@ namespace DownHillParkAPI.Controllers
         }
         
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            var item = _competitionService.FindById(id);
+            var item = await _competitionService.FindByIdAsync(id);
             if (item == null)
             {
                 logger.LogInformation("Failed at deleting Competition {0}", id);
                 return NotFound();
             }
 
-            _competitionService.Delete(id);
+            await _competitionService.DeleteAsync(id);
             logger.LogInformation("Deleted Competition: {0}", id);
             return new NoContentResult();
         }

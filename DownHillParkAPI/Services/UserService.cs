@@ -37,11 +37,11 @@ namespace DownHillParkAPI.Services
         public async Task<User> AddBikeToUserAsync(int BikeId, string UserId)
         {
             var user = await _userManager.FindByIdAsync(UserId);
-            var bike = _bikeService.FindById(BikeId);
+            var bike = await _bikeService.FindByIdAsync(BikeId);
             if (user != null & bike != null)
             {
                 bike.User = user;
-                _bikeService.Update(bike);
+                await _bikeService.UpdateAsync(bike);
                 return user;
             }
             return null;
@@ -49,12 +49,12 @@ namespace DownHillParkAPI.Services
 
         public async Task<User> AddTeamToUserAsync(int TeamId, string UserId)
         {
-            var team = _teamService.FindById(TeamId);
+            var team = await _teamService.FindByIdAsync(TeamId);
             var user = await _userManager.FindByIdAsync(UserId);
             if (user != null && team != null)
             {
                 user.TeamId = TeamId;
-                _teamService.Update(team);
+                await _teamService.UpdateAsync(team);
                 return user;
             }
             return null;
@@ -75,11 +75,11 @@ namespace DownHillParkAPI.Services
         public async Task<User> AddUserToCompetitionAsync(int CompetitionId, string UserId)
         {
             var user = await _userManager.FindByIdAsync(UserId);
-            var competition = _competitionService.FindById(CompetitionId);
+            var competition = await _competitionService.FindByIdAsync(CompetitionId);
             if (user != null && competition != null)
             {
                 user.CompetitionId = CompetitionId;
-                _competitionService.Update(competition);
+                await _competitionService.UpdateAsync(competition);
                 return user;
             }
             return null;
