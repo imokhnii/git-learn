@@ -10,3 +10,78 @@ Entered Account Controller
 Logged in User: 112a77af-4ced-4558-a90f-1e7bb0eff9cc
 Entered Account Controller
 Logged out
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Account Controller
+Registered User: b6fed3a6-36ca-46e6-b916-057f334ec3f8
+Entered Team Controller
+Created Team: 4
+Entered Team Controller
+Got by id Team: 4
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Account Controller
+User password validation failed: PasswordTooShort;PasswordRequiresNonAlphanumeric;PasswordRequiresDigit;PasswordRequiresUpper.
+Failed at registering User test@mail.com
+Entered Account Controller
+Registered User: 4cfadcca-b1d5-4773-945d-f8ea61542f85
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Bike Controller
+Created Bike: 1002
+Entered Bike Controller
+Got all bikes
+Entered Bike Controller
+Got by id Bike: 1
+Entered Bike Controller
+Deleted Bike: 1002
+Entered Bike Controller
+Failed at getting Bike 1002
+Entered Bike Controller
+Got all bikes
+Entered Bike Controller
+Created Bike: 1003
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered CompetitionPrize Controller
+Created Prize: 1002
+Entered Competition Controller
+Created Competition: 1002
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Team Controller
+Created Team: 5
+Entered CompetitionPrize Controller
+Created Prize: 1003
+Entered Bike Controller
+Created Bike: 1004
+Entered Competition Controller
+Created Competition: 1003
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Bike Controller
+Deleted Bike: 1003
+Entered Bike Controller
+Deleted Bike: 1004
+Entered Bike Controller
+Created Bike: 1005
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Bike Controller
+Created Bike: 1
+Entered Competition Controller
+Created Competition: 1
+Entered CompetitionPrize Controller
+Created Prize: 1
+Entered Team Controller
+Created Team: 1

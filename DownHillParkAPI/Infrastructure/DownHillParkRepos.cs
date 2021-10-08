@@ -15,6 +15,7 @@ namespace DownHillParkAPI.Infrastructure
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ICompetitionRepository, CompetitionRepository>();
             services.AddScoped<ICompetitionPrizeRepository, CompetitionPrizeRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
         }
     }

@@ -19,39 +19,39 @@ namespace DownHillParkAPI.Services
     }
     public class BikeService : IBikeService
     {
-        public BikeService(IBikeRepository bikeManager, IMapper mapper)
+        public BikeService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _bikeManager = bikeManager;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        private readonly IBikeRepository _bikeManager;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public async Task<Bike> CreateAsync(BikeRequest item)
         {
-            var bike = await _bikeManager.AddAsync(
+            var bike = await _unitOfWork.Bikes.AddAsync(
                 _mapper.Map<Bike>(item));
             return bike;
         }
 
         public IEnumerable<Bike> GetAll()
         {
-            return _bikeManager.GetAll();
+            return _unitOfWork.Bikes.GetAll();
         }
 
         public async Task<Bike> FindByIdAsync(int id)
         {
-            return await _bikeManager.FindByIdAsync(id);
+            return await _unitOfWork.Bikes.FindByIdAsync(id);
         }
 
         public async Task DeleteAsync(int id)
         {
-           await _bikeManager.RemoveAsync(id);
+           await _unitOfWork.Bikes.RemoveAsync(id);
         }
 
         public async Task UpdateAsync(Bike bike)
         {
-            await _bikeManager.UpdateAsync(bike);
+            await _unitOfWork.Bikes.UpdateAsync(bike);
         }
     }
 }

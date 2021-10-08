@@ -20,28 +20,24 @@ namespace DownHillParkAPI.Services
     }
     public class UserService : IUserService
     {
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IBikeService bikeService, ITeamService teamService, ICompetitionService competitionService)
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _bikeService = bikeService;
-            _teamService = teamService;
-            _competitionService = competitionService;
+            _unitOfWork = unitOfWork;
         }
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
-        private readonly IBikeService _bikeService;
-        private readonly ITeamService _teamService;
-        private readonly ICompetitionService _competitionService;
+        private readonly IUnitOfWork _unitOfWork;
 
         public async Task<User> AddBikeToUserAsync(int BikeId, string UserId)
         {
             var user = await _userManager.FindByIdAsync(UserId);
-            var bike = await _bikeService.FindByIdAsync(BikeId);
+            var bike = await _unitOfWork.Bikes.FindByIdAsync(BikeId);
             if (user != null & bike != null)
             {
                 bike.User = user;
-                await _bikeService.UpdateAsync(bike);
+                await _unitOfWork.Bikes.UpdateAsync(bike);
                 return user;
             }
             return null;
@@ -49,12 +45,12 @@ namespace DownHillParkAPI.Services
 
         public async Task<User> AddTeamToUserAsync(int TeamId, string UserId)
         {
-            var team = await _teamService.FindByIdAsync(TeamId);
+            var team = await _unitOfWork.Teams.FindByIdAsync(TeamId);
             var user = await _userManager.FindByIdAsync(UserId);
             if (user != null && team != null)
             {
                 user.TeamId = TeamId;
-                await _teamService.UpdateAsync(team);
+                await _unitOfWork.Teams.UpdateAsync(team);
                 return user;
             }
             return null;
@@ -75,11 +71,11 @@ namespace DownHillParkAPI.Services
         public async Task<User> AddUserToCompetitionAsync(int CompetitionId, string UserId)
         {
             var user = await _userManager.FindByIdAsync(UserId);
-            var competition = await _competitionService.FindByIdAsync(CompetitionId);
+            var competition = await _unitOfWork.Competitions.FindByIdAsync(CompetitionId);
             if (user != null && competition != null)
             {
                 user.CompetitionId = CompetitionId;
-                await _competitionService.UpdateAsync(competition);
+                await _unitOfWork.Competitions.UpdateAsync(competition);
                 return user;
             }
             return null;

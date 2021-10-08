@@ -19,39 +19,39 @@ namespace DownHillParkAPI.Services
     }
     public class CompetitionService : ICompetitionService
     {
-        public CompetitionService(ICompetitionRepository competitionManager, IMapper mapper)
+        public CompetitionService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _competitionManager = competitionManager;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        private readonly ICompetitionRepository _competitionManager;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public async Task<Competition> CreateAsync(CompetitionRequest item)
         {
-            var competition = await _competitionManager.AddAsync(
+            var competition = await _unitOfWork.Competitions.AddAsync(
                 _mapper.Map<Competition>(item));
             return competition;
         }
 
         public IEnumerable<Competition> GetAll()
         {
-            return _competitionManager.GetAll();
+            return _unitOfWork.Competitions.GetAll();
         }
 
         public async Task<Competition> FindByIdAsync(int id)
         {
-            return await _competitionManager.FindByIdAsync(id);
+            return await _unitOfWork.Competitions.FindByIdAsync(id);
         }
 
         public async Task DeleteAsync(int id)
         {
-            await _competitionManager.RemoveAsync(id);
+            await _unitOfWork.Competitions.RemoveAsync(id);
         }
 
         public async Task UpdateAsync(Competition competition)
         {
-            await _competitionManager.UpdateAsync(competition);
+            await _unitOfWork.Competitions.UpdateAsync(competition);
         }
     }
 }

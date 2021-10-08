@@ -18,32 +18,30 @@ namespace DownHillParkAPI.Services
     }
     public class CompetitionPrizeService : ICompetitionPrizeService
     {
-        public CompetitionPrizeService(ICompetitionPrizeRepository prizeManager,ICompetitionService competitionService, IMapper mapper)
+        public CompetitionPrizeService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _prizeManager = prizeManager;
-            _competitionService = competitionService;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        private readonly ICompetitionPrizeRepository _prizeManager;
-        private readonly ICompetitionService _competitionService;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public async Task<CompetitionPrize> CreateAsync(CompetitionPrizeRequest item)
         {
-            var prize = await _prizeManager.AddAsync(
+            var prize = await _unitOfWork.Prizes.AddAsync(
                 _mapper.Map<CompetitionPrize>(item));
             return prize;
         }
 
         public async Task<CompetitionPrize> AddPrizesToCompetitionAsync(int CompetitionId, int PrizeId)
         {
-            var competition = await _competitionService.FindByIdAsync(CompetitionId);
-            var prize = await _prizeManager.FindByIdAsync(PrizeId);
+            var competition = await _unitOfWork.Competitions.FindByIdAsync(CompetitionId);
+            var prize = await _unitOfWork.Prizes.FindByIdAsync(PrizeId);
             if (competition != null && prize != null)
             {
                 prize.CompetitionId = CompetitionId;
                 competition.CompetitionPrizeId = PrizeId;
-                await _prizeManager.UpdateAsync(prize);
+                await _unitOfWork.Prizes.UpdateAsync(prize);
                 return prize;
             }
             return null;
@@ -51,12 +49,12 @@ namespace DownHillParkAPI.Services
 
         public async Task<CompetitionPrize> FindByIdAsync(int id)
         {
-            return await _prizeManager.FindByIdAsync(id);
+            return await _unitOfWork.Prizes.FindByIdAsync(id);
         }
 
         public async Task DeleteAsync(int id)
         {
-            await _prizeManager.RemoveAsync(id);
+            await _unitOfWork.Prizes.RemoveAsync(id);
         }
     }
 }

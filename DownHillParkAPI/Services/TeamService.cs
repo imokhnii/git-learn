@@ -19,17 +19,17 @@ namespace DownHillParkAPI.Services
     }
     public class TeamService : ITeamService
     {
-        public TeamService(ITeamRepository teamManager, IMapper mapper)
+        public TeamService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _teamManager = teamManager;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        private readonly ITeamRepository _teamManager;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public async Task <Team> CreateAsync(TeamRequest item)
         {
-            var team = await _teamManager.AddAsync(
+            var team = await _unitOfWork.Teams.AddAsync(
                 _mapper.Map<Team>(item));
             return team;
 
@@ -37,22 +37,22 @@ namespace DownHillParkAPI.Services
 
         public IEnumerable<Team> GetAll()
         {
-            return  _teamManager.GetAll();
+            return  _unitOfWork.Teams.GetAll();
         }
 
         public async Task<Team> FindByIdAsync(int id)
         {
-            return await _teamManager.FindByIdAsync(id);
+            return await _unitOfWork.Teams.FindByIdAsync(id);
         }
 
         public async Task DeleteAsync(int id)
         {
-            await _teamManager.RemoveAsync(id);
+            await _unitOfWork.Teams.RemoveAsync(id);
         }
 
         public async Task UpdateAsync(Team team)
         {
-            await _teamManager.UpdateAsync(team);
+            await _unitOfWork.Teams.UpdateAsync(team);
         }
     }
 }
