@@ -1,0 +1,47 @@
+﻿using DownHillParkAPI.Data;
+using DownHillParkAPI.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace DownHillParkAPI.Repositories
+{
+    public interface ICompetitionResultRepository
+    {
+        Task<CompetitionResult> AddAsync(CompetitionResult result);
+        Task UpdateAsync(Competition result);
+        Task<CompetitionResult> FindByIdAsync(int id);
+        Task RemoveAsync(int id);
+    }
+    public class CompetitionResultRepository : ICompetitionResultRepository
+    {
+        private readonly DownHillParkAPIContext db;
+        public CompetitionResultRepository(DownHillParkAPIContext db)
+        {
+            this.db = db;
+        }
+        public async Task<CompetitionResult> AddAsync(CompetitionResult result)
+        {
+            await db.CompetitionResults.AddAsync(result);
+            await db.SaveChangesAsync();
+            return result;
+        }
+
+        public async Task<CompetitionResult> FindByIdAsync(int id)
+        {
+            return await db.CompetitionResults.FindAsync(id);
+        }
+
+        public async Task RemoveAsync(int id)
+        {
+            db.CompetitionResults.Remove(await db.CompetitionResults.FindAsync(id));
+        }
+
+        public async Task UpdateAsync(Competition result)
+        {
+            db.Entry(result).CurrentValues.SetValues(result);
+            await db.SaveChangesAsync();
+        }
+    }
+}

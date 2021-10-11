@@ -12,6 +12,7 @@ namespace DownHillParkAPI.Repositories
         ICompetitionRepository Competitions { get; }
         ICompetitionPrizeRepository Prizes { get; }
         ITeamRepository Teams { get; }
+        ICompetitionResultRepository Results { get; }
         int Complete();
     }
     public class UnitOfWork : IUnitOfWork
@@ -21,13 +22,15 @@ namespace DownHillParkAPI.Repositories
         public ICompetitionRepository Competitions { get; }
         public ICompetitionPrizeRepository Prizes { get; }
         public ITeamRepository Teams { get; }
-        public UnitOfWork(DownHillParkAPIContext db, IBikeRepository bikeRepository, ICompetitionPrizeRepository prizeRepository, ICompetitionRepository competitionRepository, ITeamRepository teamRepository)
+        public ICompetitionResultRepository Results { get; }
+        public UnitOfWork(DownHillParkAPIContext db, IBikeRepository bikeRepository, ICompetitionPrizeRepository prizeRepository, ICompetitionRepository competitionRepository, ITeamRepository teamRepository, ICompetitionResultRepository competitionResultRepository)
         {
             this.db = db;
             Bikes = bikeRepository;
             Competitions = competitionRepository;
             Prizes = prizeRepository;
             Teams = teamRepository;
+            Results = competitionResultRepository;
         }
 
         public int Complete()

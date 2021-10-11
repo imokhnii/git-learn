@@ -10,5 +10,6 @@ namespace DownHillParkAPI.RequestModels
         public string Name { get; set; }
         public DateTime DateOfStart { get; set; }
         public DateTime DateOfEnd { get; set; }
+        public string Type { get; set; }
     }
 }

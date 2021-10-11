@@ -1,0 +1,33 @@
+﻿using DownHillParkAPI.Models;
+using DownHillParkAPI.RequestModels;
+using DownHillParkAPI.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace DownHillParkAPI.Controllers
+{
+    [Route("api/[controller]/[action]")]
+    [ApiController]
+    public class CompetitionResultController : ControllerBase
+    {
+        private readonly ICompetitionResultService _resultService;
+        public CompetitionResultController(ICompetitionResultService resultService)
+        {
+            _resultService = resultService;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ResultRequest item)
+        {
+            var result = await _resultService.Create(item);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+    }
+}
