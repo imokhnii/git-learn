@@ -29,5 +29,16 @@ namespace DownHillParkAPI.Controllers
             }
             return BadRequest();
         }
+        
+        [HttpGet]
+        public IActionResult FindWinner(int CompetitionId)
+        {
+            var result = _resultService.GetWinner(CompetitionId);
+            if(result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound();
+        }
     }
 }

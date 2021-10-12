@@ -13,6 +13,7 @@ namespace DownHillParkAPI.Repositories
         void Update(Competition result);
         Task<CompetitionResult> FindByIdAsync(int id);
         Task RemoveAsync(int id);
+        CompetitionResult GetWinner(int id);
     }
     public class CompetitionResultRepository : ICompetitionResultRepository
     {
@@ -30,6 +31,13 @@ namespace DownHillParkAPI.Repositories
         public async Task<CompetitionResult> FindByIdAsync(int id)
         {
             return await db.CompetitionResults.FindAsync(id);
+        }
+
+        public CompetitionResult GetWinner(int id)
+        {
+            var results = db.CompetitionResults.Where(a => a.CompetitionId == id);
+            var minTime = results.Min(a => a.TotalTime);
+            return results.Where(a => (TimeSpan.Compare(a.TotalTime, minTime)==0)).FirstOrDefault();
         }
 
         public async Task RemoveAsync(int id)

@@ -12,6 +12,7 @@ namespace DownHillParkAPI.Services
     public interface ICompetitionResultService
     {
         Task<CompetitionResult> Create(ResultRequest item);
+        CompetitionResult GetWinner(int CompetitionId);
     }
     public class CompetitionResultService : ICompetitionResultService
     {
@@ -38,6 +39,11 @@ namespace DownHillParkAPI.Services
             await _unitOfWork.Results.AddAsync(result);
             _unitOfWork.Complete();
             return result;
+        }
+
+        public CompetitionResult GetWinner(int CompetitionId)
+        {
+            return _unitOfWork.Results.GetWinner(CompetitionId);
         }
     }
 }
