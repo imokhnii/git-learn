@@ -24,6 +24,7 @@ namespace DownHillParkAPI.Mapper
                 ForMember("UserName", opt => opt.MapFrom(src => src.Email));
             CreateMap<ResultRequest, CompetitionResult>()
                 .ForMember("TotalTime", opt => opt.MapFrom(src => src.Time));
+            CreateMap<LapRequest, Lap>();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace DownHillParkAPI.Repositories
         Task<Bike> AddAsync(Bike bike);
         IEnumerable<Bike> GetAll();
         Task<Bike> FindByIdAsync(int id);
-        Task UpdateAsync(Bike bike);
+        void Update(Bike bike);
         Task RemoveAsync(int id);
     }
     public class BikeRepository : IBikeRepository
@@ -26,7 +26,6 @@ namespace DownHillParkAPI.Repositories
         public async Task<Bike> AddAsync(Bike bike)
         {
             await db.Bikes.AddAsync(bike);
-            await db.SaveChangesAsync();
             return bike;
         }
         public IEnumerable<Bike> GetAll()
@@ -37,15 +36,13 @@ namespace DownHillParkAPI.Repositories
         {
             return await db.Bikes.FindAsync(id);
         }
-        public async Task UpdateAsync(Bike bike)
+        public void Update(Bike bike)
         {
             db.Entry(bike).CurrentValues.SetValues(bike);
-            await db.SaveChangesAsync();
         }
         public async Task RemoveAsync(int id)
         {
             db.Bikes.Remove(await db.Bikes.FindAsync(id));
-            await db.SaveChangesAsync();
         }
     }
 }

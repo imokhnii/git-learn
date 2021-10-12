@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DownHillParkAPI.Migrations
 {
-    public partial class AddedResultsAndLaps : Migration
+    public partial class AddedResults : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,8 +70,7 @@ namespace DownHillParkAPI.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CompetitionResults_CompetitionId",
                 table: "CompetitionResults",
-                column: "CompetitionId",
-                unique: true);
+                column: "CompetitionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Laps_ResultId",

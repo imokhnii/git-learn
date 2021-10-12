@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DownHillParkAPI.RequestModels
 {
@@ -10,5 +8,6 @@ namespace DownHillParkAPI.RequestModels
         public int CompetitionId { get; set; }
         public string UserId { get; set; }
         public TimeSpan Time { get; set; }
+        public List<LapRequest> Laps { get; set; }
     }
 }

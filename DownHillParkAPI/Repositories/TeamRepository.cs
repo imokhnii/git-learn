@@ -10,7 +10,7 @@ namespace DownHillParkAPI.Repositories
     public interface ITeamRepository
     {
         Task<Team> AddAsync(Team team);
-        Task UpdateAsync(Team team);
+        void Update(Team team);
         IEnumerable<Team> GetAll();
         Task<Team> FindByIdAsync(int id);
         Task RemoveAsync(int id);
@@ -27,13 +27,11 @@ namespace DownHillParkAPI.Repositories
         public async Task<Team> AddAsync(Team team)
         {
             await db.Teams.AddAsync(team);
-            await db.SaveChangesAsync();
             return team;
         }
-        public async Task UpdateAsync(Team team)
+        public void Update(Team team)
         {
             db.Entry(team).CurrentValues.SetValues(team);
-            await db.SaveChangesAsync();
         }
         public IEnumerable<Team> GetAll()
         {
@@ -47,7 +45,6 @@ namespace DownHillParkAPI.Repositories
         public async Task RemoveAsync(int id)
         {
             db.Teams.Remove(await db.Teams.FindAsync(id));
-            await db.SaveChangesAsync();
         }
     }
 }

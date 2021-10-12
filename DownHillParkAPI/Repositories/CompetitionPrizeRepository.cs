@@ -12,7 +12,7 @@ namespace DownHillParkAPI.Repositories
         Task<CompetitionPrize> AddAsync(CompetitionPrize prize);
         IEnumerable<CompetitionPrize> GetAll();
         Task<CompetitionPrize> FindByIdAsync(int id);
-        Task UpdateAsync(CompetitionPrize prize);
+        void Update(CompetitionPrize prize);
         Task RemoveAsync(int id);
     }
     public class CompetitionPrizeRepository : ICompetitionPrizeRepository
@@ -26,7 +26,6 @@ namespace DownHillParkAPI.Repositories
         public async Task<CompetitionPrize> AddAsync(CompetitionPrize prize)
         {
             await db.CompetitionPrizes.AddAsync(prize);
-            await db.SaveChangesAsync();
             return prize;
         }
 
@@ -38,15 +37,13 @@ namespace DownHillParkAPI.Repositories
         {
             return await db.CompetitionPrizes.FindAsync(id);
         }
-        public async Task UpdateAsync(CompetitionPrize prize)
+        public void Update(CompetitionPrize prize)
         {
             db.Entry(prize).CurrentValues.SetValues(prize);
-            await db.SaveChangesAsync();
         }
         public async Task RemoveAsync(int id)
         {
             db.CompetitionPrizes.Remove(await db.CompetitionPrizes.FindAsync(id));
-            await db.SaveChangesAsync();
         }
     }
 }

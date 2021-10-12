@@ -20,7 +20,7 @@ namespace DownHillParkAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ResultRequest item)
+        public async Task<IActionResult> Create([FromBody]ResultRequest item)
         {
             var result = await _resultService.Create(item);
             if (result != null)

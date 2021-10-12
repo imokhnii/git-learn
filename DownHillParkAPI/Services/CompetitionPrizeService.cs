@@ -30,6 +30,7 @@ namespace DownHillParkAPI.Services
         {
             var prize = await _unitOfWork.Prizes.AddAsync(
                 _mapper.Map<CompetitionPrize>(item));
+            _unitOfWork.Complete();
             return prize;
         }
 
@@ -41,7 +42,8 @@ namespace DownHillParkAPI.Services
             {
                 prize.CompetitionId = CompetitionId;
                 competition.CompetitionPrizeId = PrizeId;
-                await _unitOfWork.Prizes.UpdateAsync(prize);
+                _unitOfWork.Prizes.Update(prize);
+                _unitOfWork.Complete();
                 return prize;
             }
             return null;
@@ -55,6 +57,7 @@ namespace DownHillParkAPI.Services
         public async Task DeleteAsync(int id)
         {
             await _unitOfWork.Prizes.RemoveAsync(id);
+            _unitOfWork.Complete();
         }
     }
 }

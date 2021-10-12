@@ -44,9 +44,8 @@ namespace DownHillParkAPI.Data
                 .WithOne(p => p.Competition)
                 .HasForeignKey<CompetitionPrize>(p => p.CompetitionId);
             builder.Entity<Competition>()
-                .HasOne(c => c.Result)
-                .WithOne(r => r.Competition)
-                .HasForeignKey<CompetitionResult>(r => r.CompetitionId);
+                .HasMany(c => c.Results)
+                .WithOne(r => r.Competition);
             builder.Entity<CompetitionResult>()
                 .HasMany(r => r.Laps)
                 .WithOne(l => l.Result);

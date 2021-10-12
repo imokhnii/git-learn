@@ -37,7 +37,8 @@ namespace DownHillParkAPI.Services
             if (user != null & bike != null)
             {
                 bike.User = user;
-                await _unitOfWork.Bikes.UpdateAsync(bike);
+                _unitOfWork.Bikes.Update(bike);
+                _unitOfWork.Complete();
                 return user;
             }
             return null;
@@ -50,7 +51,8 @@ namespace DownHillParkAPI.Services
             if (user != null && team != null)
             {
                 user.TeamId = TeamId;
-                await _unitOfWork.Teams.UpdateAsync(team);
+                _unitOfWork.Teams.Update(team);
+                _unitOfWork.Complete();
                 return user;
             }
             return null;
@@ -63,6 +65,7 @@ namespace DownHillParkAPI.Services
             {
                 user.Country = Country;
                 await _userManager.UpdateAsync(user);
+                _unitOfWork.Complete();
                 return user;
             }
             return null;
@@ -75,7 +78,8 @@ namespace DownHillParkAPI.Services
             if (user != null && competition != null)
             {
                 user.CompetitionId = CompetitionId;
-                await _unitOfWork.Competitions.UpdateAsync(competition);
+                _unitOfWork.Competitions.Update(competition);
+                _unitOfWork.Complete();
                 return user;
             }
             return null;

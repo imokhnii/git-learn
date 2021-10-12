@@ -13,7 +13,7 @@ namespace DownHillParkAPI.Models
         public DateTime DateOfStart { get; set; } 
         public DateTime DateOfEnd { get; set; }
         public int? CompetitionResultId { get; set; }
-        public virtual CompetitionResult Result { get; set; }
+        public List<CompetitionResult> Results { get; set; }
         public virtual ICollection<User> Participants { get; set; }
         public int? CompetitionPrizeId { get; set; }
         public virtual CompetitionPrize Prize { get; set; }

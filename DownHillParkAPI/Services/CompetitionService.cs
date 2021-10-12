@@ -14,7 +14,7 @@ namespace DownHillParkAPI.Services
         Task<Competition> CreateAsync(CompetitionRequest item);
         IEnumerable<Competition> GetAll();
         Task<Competition> FindByIdAsync(int id);
-        Task UpdateAsync(Competition competition);
+        void Update(Competition competition);
         Task DeleteAsync(int id);
     }
     public class CompetitionService : ICompetitionService
@@ -31,6 +31,7 @@ namespace DownHillParkAPI.Services
         {
             var competition = await _unitOfWork.Competitions.AddAsync(
                 _mapper.Map<Competition>(item));
+            _unitOfWork.Complete();
             return competition;
         }
 
@@ -47,11 +48,13 @@ namespace DownHillParkAPI.Services
         public async Task DeleteAsync(int id)
         {
             await _unitOfWork.Competitions.RemoveAsync(id);
+            _unitOfWork.Complete();
         }
 
-        public async Task UpdateAsync(Competition competition)
+        public void Update(Competition competition)
         {
-            await _unitOfWork.Competitions.UpdateAsync(competition);
+            _unitOfWork.Competitions.Update(competition);
+            _unitOfWork.Complete();
         }
     }
 }

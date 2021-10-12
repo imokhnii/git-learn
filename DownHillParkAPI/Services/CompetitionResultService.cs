@@ -26,19 +26,18 @@ namespace DownHillParkAPI.Services
         public async Task<CompetitionResult> Create(ResultRequest item)
         {
             var result = _mapper.Map<ResultRequest,CompetitionResult>(item);
-            if (result != null)
+            var competition = await _unitOfWork.Competitions.FindByIdAsync(result.CompetitionId);
+            result.Type = competition.Type;
+            
+            foreach (Lap lap in result.Laps)
             {
-                var competition = await _unitOfWork.Competitions.FindByIdAsync(result.CompetitionId);
-                result.Type = competition.Type;
-                if (result.Type == "WithoutLaps")
-                {
-                    result.Laps = null;
-                }
-                await _unitOfWork.Results.AddAsync(result);
-                await _unitOfWork.Competitions.UpdateAsync(competition);
-                return result;
+                result.TotalTime += lap.LapTime;
+                lap.UserId = result.UserId;
             }
-            return null;
+            
+            await _unitOfWork.Results.AddAsync(result);
+            _unitOfWork.Complete();
+            return result;
         }
     }
 }

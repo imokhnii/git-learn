@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DownHillParkAPI.Migrations
 {
     [DbContext(typeof(DownHillParkAPIContext))]
-    [Migration("20211011140306_AddedResultsAndLaps")]
-    partial class AddedResultsAndLaps
+    [Migration("20211012131105_AddedResults")]
+    partial class AddedResults
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -126,8 +126,7 @@ namespace DownHillParkAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetitionId")
-                        .IsUnique();
+                    b.HasIndex("CompetitionId");
 
                     b.ToTable("CompetitionResults");
                 });
@@ -432,8 +431,8 @@ namespace DownHillParkAPI.Migrations
             modelBuilder.Entity("DownHillParkAPI.Models.CompetitionResult", b =>
                 {
                     b.HasOne("DownHillParkAPI.Models.Competition", "Competition")
-                        .WithOne("Result")
-                        .HasForeignKey("DownHillParkAPI.Models.CompetitionResult", "CompetitionId")
+                        .WithMany("Results")
+                        .HasForeignKey("CompetitionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -523,7 +522,7 @@ namespace DownHillParkAPI.Migrations
 
                     b.Navigation("Prize");
 
-                    b.Navigation("Result");
+                    b.Navigation("Results");
                 });
 
             modelBuilder.Entity("DownHillParkAPI.Models.CompetitionResult", b =>
