@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DownHillParkAPI.Models
+﻿namespace DownHillParkAPI.Models
 {
     public class Bike
     {

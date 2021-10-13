@@ -1,9 +1,6 @@
 ﻿using DownHillParkAPI.Data;
 using DownHillParkAPI.Models;
-using DownHillParkAPI.RequestModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DownHillParkAPI.Repositories
