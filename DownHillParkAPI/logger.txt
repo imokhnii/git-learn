@@ -543,3 +543,54 @@ Entered Competition Controller
 Got all competitions
 Entered Competition Controller
 Got all competitions
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Competition Controller
+Got all competitions
+The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results.
+The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results.
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Competition Controller
+Got all competitions
+The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results.
+The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results.
+Entered Competition Controller
+Got all competitions
+Entered Competition Controller
+Created Competition: 7
+Entered Competition Controller
+Got all competitions
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Competition Controller
+Got all competitions
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Competition Controller
+Got all competitions
+Entered Competition Controller
+Got all competitions
+Entered Competition Controller
+Got all competitions
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Competition Controller
+Got all competitions
+Entered Competition Controller
+Got all competitions
+Entered Competition Controller
+Got all competitions
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Competition Controller
+Got all competitions

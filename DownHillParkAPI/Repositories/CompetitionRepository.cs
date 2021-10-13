@@ -2,6 +2,7 @@
 using DownHillParkAPI.Models;
 using DownHillParkAPI.RequestModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +33,23 @@ namespace DownHillParkAPI.Repositories
         }
         public IEnumerable<Competition> GetAll(PageRequest pageRequest)
         {
-            return db.Competitions
+            var comps = new List<Competition>();
+            switch(pageRequest.SortOption)
+            {
+                case SortOptions.TypeAsc: comps = db.Competitions.OrderBy(c => c.Type).ToList();break;
+                case SortOptions.TypeDesc: comps = db.Competitions.OrderByDescending(c => c.Type).ToList(); break;
+                case SortOptions.DateOfStartAsc: comps = db.Competitions.OrderBy(c => c.DateOfStart).ToList(); break;
+                case SortOptions.DateOfStartDesc:  comps = db.Competitions.OrderByDescending(c => c.DateOfStart).ToList(); break;
+                case SortOptions.DateOfEndAsc: comps = db.Competitions.OrderBy(c => c.DateOfEnd).ToList(); break;
+                case SortOptions.DateOfEndDesc: comps = db.Competitions.OrderByDescending(c => c.DateOfEnd).ToList(); break;
+                default:comps = db.Competitions.ToList(); break;
+            }
+            return comps
             .Skip((pageRequest.PageNumber - 1) * pageRequest.PageSize)
             .Take(pageRequest.PageSize)
             .ToList();
-        }
-        public async Task<Competition> FindByIdAsync(int id)
+    }
+    public async Task<Competition> FindByIdAsync(int id)
         {
             return await db.Competitions.FindAsync(id);
         }
@@ -49,5 +61,5 @@ namespace DownHillParkAPI.Repositories
         {
             db.Competitions.Remove(await db.Competitions.FindAsync(id));
         }
-    }
+}
 }
