@@ -40,10 +40,10 @@ namespace DownHillParkAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Competition> GetAll()
+        public IEnumerable<Competition> GetAll([FromQuery]PageRequest pageRequest)
         {
             logger.LogInformation("Got all competitions");
-            return _competitionService.GetAll();
+            return _competitionService.GetAll(pageRequest);
         }
         [HttpGet("{id}", Name = "GetCompetition")]
         public async Task<IActionResult> GetById(int id)

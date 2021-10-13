@@ -514,3 +514,32 @@ Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
 Application started. Press Ctrl+C to shut down.
 Hosting environment: Development
 Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
+Entered Competition Controller
+Got all competitions
+The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results.
+The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results.
+Entered Competition Controller
+Created Competition: 3
+Entered Competition Controller
+Created Competition: 4
+Entered Competition Controller
+Created Competition: 5
+Entered Competition Controller
+Created Competition: 6
+Entered Competition Controller
+Got all competitions
+The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results.
+The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results.
+Entered Competition Controller
+Got all competitions
+Entered Competition Controller
+Got all competitions

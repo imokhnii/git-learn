@@ -1,5 +1,6 @@
 ﻿using DownHillParkAPI.Data;
 using DownHillParkAPI.Models;
+using DownHillParkAPI.RequestModels;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace DownHillParkAPI.Repositories
     public interface ICompetitionRepository
     {
         Task <Competition> AddAsync(Competition competition);
-        IEnumerable<Competition> GetAll();
+        IEnumerable<Competition> GetAll(PageRequest pageRequest);
         Task<Competition> FindByIdAsync(int id);
         void Update(Competition competition);
         Task RemoveAsync(int id);
@@ -29,9 +30,12 @@ namespace DownHillParkAPI.Repositories
             await db.Competitions.AddAsync(competition);
             return competition;
         }
-        public IEnumerable<Competition> GetAll()
+        public IEnumerable<Competition> GetAll(PageRequest pageRequest)
         {
-            return db.Competitions;
+            return db.Competitions
+            .Skip((pageRequest.PageNumber - 1) * pageRequest.PageSize)
+            .Take(pageRequest.PageSize)
+            .ToList();
         }
         public async Task<Competition> FindByIdAsync(int id)
         {

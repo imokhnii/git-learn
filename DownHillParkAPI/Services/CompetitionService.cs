@@ -12,7 +12,7 @@ namespace DownHillParkAPI.Services
     public interface ICompetitionService
     {
         Task<Competition> CreateAsync(CompetitionRequest item);
-        IEnumerable<Competition> GetAll();
+        IEnumerable<Competition> GetAll(PageRequest pageRequest);
         Task<Competition> FindByIdAsync(int id);
         void Update(Competition competition);
         Task DeleteAsync(int id);
@@ -35,9 +35,9 @@ namespace DownHillParkAPI.Services
             return competition;
         }
 
-        public IEnumerable<Competition> GetAll()
+        public IEnumerable<Competition> GetAll(PageRequest pageRequest)
         {
-            return _unitOfWork.Competitions.GetAll();
+            return _unitOfWork.Competitions.GetAll(pageRequest);
         }
 
         public async Task<Competition> FindByIdAsync(int id)
