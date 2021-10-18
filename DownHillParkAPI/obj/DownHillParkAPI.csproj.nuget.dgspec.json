@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Львівська Політехніка\\Work\\DownHillParkAPI\\DownHillParkAPI.csproj": {}
+    "C:\\Users\\admin\\Desktop\\DHPark2\\git-learn\\DownHillParkAPI\\DownHillParkAPI.csproj": {}
   },
   "projects": {
-    "D:\\Львівська Політехніка\\Work\\DownHillParkAPI\\DownHillParkAPI.csproj": {
+    "C:\\Users\\admin\\Desktop\\DHPark2\\git-learn\\DownHillParkAPI\\DownHillParkAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Львівська Політехніка\\Work\\DownHillParkAPI\\DownHillParkAPI.csproj",
+        "projectUniqueName": "C:\\Users\\admin\\Desktop\\DHPark2\\git-learn\\DownHillParkAPI\\DownHillParkAPI.csproj",
         "projectName": "DownHillParkAPI",
-        "projectPath": "D:\\Львівська Політехніка\\Work\\DownHillParkAPI\\DownHillParkAPI.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\Львівська Політехніка\\Work\\DownHillParkAPI\\obj\\",
+        "projectPath": "C:\\Users\\admin\\Desktop\\DHPark2\\git-learn\\DownHillParkAPI\\DownHillParkAPI.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\admin\\Desktop\\DHPark2\\git-learn\\DownHillParkAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -125,7 +125,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
