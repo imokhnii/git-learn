@@ -29,7 +29,7 @@ namespace DownHillParkAPI.Controllers
         [HttpGet]
         public IActionResult FindWinner(int CompetitionId)
         {
-            var result = _resultService.GetWinner(CompetitionId);
+            var result = _resultService.CalculateWinner(_resultService.GetByCompId(CompetitionId));
             if(result != null)
             {
                 return Ok(result);

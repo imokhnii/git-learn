@@ -594,3 +594,8 @@ Hosting environment: Development
 Content root path: C:\Users\admin\Desktop\DHPark\DownHillParkAPI\DownHillParkAPI
 Entered Competition Controller
 Got all competitions
+Now listening on: https://localhost:5001
+Now listening on: http://localhost:5000
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\admin\Desktop\DHPark2\git-learn\DownHillParkAPI

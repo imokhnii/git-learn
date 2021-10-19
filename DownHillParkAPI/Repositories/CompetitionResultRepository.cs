@@ -1,6 +1,7 @@
 ﻿using DownHillParkAPI.Data;
 using DownHillParkAPI.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace DownHillParkAPI.Repositories
         void Update(Competition result);
         Task<CompetitionResult> FindByIdAsync(int id);
         Task RemoveAsync(int id);
-        CompetitionResult GetWinner(int id);
+        IEnumerable<CompetitionResult> GetByCompetitionId(int competitionId);
     }
     public class CompetitionResultRepository : ICompetitionResultRepository
     {
@@ -32,11 +33,9 @@ namespace DownHillParkAPI.Repositories
             return await db.CompetitionResults.FindAsync(id);
         }
 
-        public CompetitionResult GetWinner(int id)
+        public IEnumerable<CompetitionResult> GetByCompetitionId(int competitionId)
         {
-            var results = db.CompetitionResults.Where(a => a.CompetitionId == id);
-            var minTime = results.Min(a => a.TotalTime);
-            return results.Where(a => (TimeSpan.Compare(a.TotalTime, minTime)==0)).FirstOrDefault();
+            return db.CompetitionResults.Where(a => a.CompetitionId == competitionId);
         }
 
         public async Task RemoveAsync(int id)

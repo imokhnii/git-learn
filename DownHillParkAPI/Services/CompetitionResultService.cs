@@ -2,6 +2,9 @@
 using DownHillParkAPI.Models;
 using DownHillParkAPI.Repositories;
 using DownHillParkAPI.RequestModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DownHillParkAPI.Services
@@ -9,10 +12,15 @@ namespace DownHillParkAPI.Services
     public interface ICompetitionResultService
     {
         Task<CompetitionResult> Create(ResultRequest item);
-        CompetitionResult GetWinner(int CompetitionId);
+        IEnumerable<CompetitionResult> GetByCompId(int CompetitionId);
+        CompetitionResult CalculateWinner(IEnumerable<CompetitionResult> results);
     }
     public class CompetitionResultService : ICompetitionResultService
     {
+        public CompetitionResultService()
+        {
+
+        }
         public CompetitionResultService(IUnitOfWork unitOfWork,IMapper mapper)
         {
             _unitOfWork = unitOfWork;
@@ -38,9 +46,16 @@ namespace DownHillParkAPI.Services
             return result;
         }
 
-        public CompetitionResult GetWinner(int CompetitionId)
+        public IEnumerable<CompetitionResult> GetByCompId(int CompetitionId)
         {
-            return _unitOfWork.Results.GetWinner(CompetitionId);
+            return _unitOfWork.Results.GetByCompetitionId(CompetitionId);
+           
+        }
+
+        public CompetitionResult CalculateWinner(IEnumerable<CompetitionResult> results)
+        {
+            var minTime = results.Min(a => a.TotalTime);
+            return results.Where(a => (TimeSpan.Compare(a.TotalTime, minTime) == 0)).FirstOrDefault();
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Tests
 {
-    public class Tests
+    public class TeamTest
     {
         private Mock<ITeamRepository> _teamRepository;
         [SetUp]
@@ -25,13 +25,14 @@ namespace Tests
         }
 
         [Test]
-        public void Test1()
+        public void TestCreatedRepositoryAndGetById()
         {
             var team = _teamRepository.Object.FindByIdAsync(3).Result;
             Assert.IsNotNull(team);
-            Assert.AreEqual(team.Id, 3);
-            Assert.AreEqual(team.Name, "Team3");
-            Assert.AreEqual(team.Country, "USA");
+            Assert.AreEqual(3, team.Id);
+            Assert.AreEqual("Team3", team.Name);
+            Assert.AreEqual("USA", team.Country);
         }
+        
     }
 }
