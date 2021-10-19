@@ -30,16 +30,17 @@ namespace DownHillParkAPI.Repositories
         }
         public IEnumerable<Competition> GetAll(PageRequest pageRequest)
         {
-            var comps = new List<Competition>();
-            switch(pageRequest.SortOption)
+
+            var comps = db.Competitions.Select(c => c);
+            switch (pageRequest.SortOption)
             {
-                case SortOptions.TypeAsc: comps = db.Competitions.OrderBy(c => c.Type).ToList();break;
-                case SortOptions.TypeDesc: comps = db.Competitions.OrderByDescending(c => c.Type).ToList(); break;
-                case SortOptions.DateOfStartAsc: comps = db.Competitions.OrderBy(c => c.DateOfStart).ToList(); break;
-                case SortOptions.DateOfStartDesc:  comps = db.Competitions.OrderByDescending(c => c.DateOfStart).ToList(); break;
-                case SortOptions.DateOfEndAsc: comps = db.Competitions.OrderBy(c => c.DateOfEnd).ToList(); break;
-                case SortOptions.DateOfEndDesc: comps = db.Competitions.OrderByDescending(c => c.DateOfEnd).ToList(); break;
-                default:comps = db.Competitions.ToList(); break;
+                case SortOptions.TypeAsc: comps = db.Competitions.OrderBy(c => c.Type); ; break;
+                case SortOptions.TypeDesc: comps = db.Competitions.OrderByDescending(c => c.Type); break;
+                case SortOptions.DateOfStartAsc: comps = db.Competitions.OrderBy(c => c.DateOfStart); break;
+                case SortOptions.DateOfStartDesc:  comps = db.Competitions.OrderByDescending(c => c.DateOfStart); break;
+                case SortOptions.DateOfEndAsc: comps = db.Competitions.OrderBy(c => c.DateOfEnd); break;
+                case SortOptions.DateOfEndDesc: comps = db.Competitions.OrderByDescending(c => c.DateOfEnd); break;
+                case SortOptions.NoSort: db.Competitions.OrderBy(c => c.Id);break;
             }
             return comps
             .Skip((pageRequest.PageNumber - 1) * pageRequest.PageSize)

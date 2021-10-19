@@ -452,3 +452,4 @@ C:\Users\admin\Desktop\DHPark2\git-learn\DownHillParkAPI\obj\Debug\net5.0\DownHi
 C:\Users\admin\Desktop\DHPark2\git-learn\DownHillParkAPI\obj\Debug\net5.0\ref\DownHillParkAPI.dll
 C:\Users\admin\Desktop\DHPark2\git-learn\DownHillParkAPI\obj\Debug\net5.0\DownHillParkAPI.pdb
 C:\Users\admin\Desktop\DHPark2\git-learn\DownHillParkAPI\obj\Debug\net5.0\DownHillParkAPI.genruntimeconfig.cache
+C:\Users\admin\Desktop\DHPark2\git-learn\DownHillParkAPI\obj\Debug\net5.0\DownHillParkAPI.csproj.AssemblyReference.cache

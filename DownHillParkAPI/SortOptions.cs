@@ -2,6 +2,7 @@
 {
     public enum SortOptions
     {
+        NoSort,
         TypeAsc,
         TypeDesc,
         DateOfStartAsc,
