@@ -67,12 +67,8 @@ namespace DownHillParkAPI.Services
         public async Task<IdentityResult> ChangeSelfPasswordAsync(ChangePassword item)
         {
             var user = await _userManager.FindByEmailAsync(item.Email);
-            IdentityResult passwordChangeResult = await _userManager.ChangePasswordAsync(user, item.CurrentPasword, item.NewPassword);
-            if (passwordChangeResult.Succeeded)
-            {
-                return passwordChangeResult;
-            }
-            return null;
+            return await _userManager.ChangePasswordAsync(user, item.CurrentPasword, item.NewPassword);
+            
         }
 
         public async Task<ClaimsIdentity> GetIdentityAsync(string username, string password)

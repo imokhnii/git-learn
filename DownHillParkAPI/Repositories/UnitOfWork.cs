@@ -20,14 +20,14 @@ namespace DownHillParkAPI.Repositories
         public ICompetitionPrizeRepository Prizes { get; }
         public ITeamRepository Teams { get; }
         public ICompetitionResultRepository Results { get; }
-        public UnitOfWork(DownHillParkAPIContext db, IBikeRepository bikeRepository, ICompetitionPrizeRepository prizeRepository, ICompetitionRepository competitionRepository, ITeamRepository teamRepository, ICompetitionResultRepository competitionResultRepository)
+        public UnitOfWork(DownHillParkAPIContext db)
         {
             this.db = db;
-            Bikes = bikeRepository;
-            Competitions = competitionRepository;
-            Prizes = prizeRepository;
-            Teams = teamRepository;
-            Results = competitionResultRepository;
+            Bikes = new BikeRepository(db);
+            Competitions = new CompetitionRepository(db);
+            Prizes = new CompetitionPrizeRepository(db);
+            Teams = new TeamRepository(db);
+            Results = new CompetitionResultRepository(db);
         }
 
         public int Complete()

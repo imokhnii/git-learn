@@ -50,7 +50,7 @@ namespace DownHillParkAPI.Controllers
                 return NotFound();
             }
             logger.LogInformation("Got by id Bike: {0}", id);
-            return new ObjectResult(item);
+            return Ok(item);
         }
         
         [HttpDelete("{id}")]
