@@ -28,9 +28,7 @@ namespace Tests
                 new CompetitionResult() {Id = 3, Type = "TestType3", CompetitionId = 1, UserId = "TestUserId3", TotalTime = new TimeSpan(0,0,18,2,0)}
             };
             var someWinner = _resultService.CalculateWinner(InMemoryDatabase);
-            Assert.IsNotNull(someWinner);
             Assert.AreEqual("TestUserId3", someWinner.UserId);
-            Assert.AreEqual(new TimeSpan(0, 0, 18, 2, 0), someWinner.TotalTime);
         }
     }
 }

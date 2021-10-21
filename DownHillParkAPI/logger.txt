@@ -626,3 +626,33 @@ Hosting environment: Development
 Content root path: C:\Users\admin\Desktop\DHPark2\git-learn\DownHillParkAPI
 Entered Competition Controller
 Got all competitions
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Account Controller
+Registered User: 0ab0d043-cf37-4c7a-a9ad-73ce137301af
+Entered Account Controller
+Registered User: 781f0da5-2de6-4ec0-b2e9-546c4574a82f
+Entered Account Controller
+Registered User: 23f0cb32-27c6-4b42-9ddf-db0022947fa4
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Competition Controller
+Created Competition: 1
+Entered Competition Controller
+Created Prize: 1
+Prize 1 added to Competition 1
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Competition Controller
+Got by id Competition: 1
+Entered Account Controller
+Logged in User: 0ab0d043-cf37-4c7a-a9ad-73ce137301af

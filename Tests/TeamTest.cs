@@ -33,7 +33,6 @@ namespace Tests
         public void GetByIdTeam()
         {
             var team = _teamRepository.Object.FindByIdAsync(3).Result;
-            Assert.IsNotNull(team);
             Assert.AreEqual(3, team.Id);
             Assert.AreEqual("Team3", team.Name);
             Assert.AreEqual("USA", team.Country);
@@ -48,7 +47,6 @@ namespace Tests
                 new Team() {Id = 3, Name = "Team3", Country = "USA"}
             };
             var teams = _teamRepository.Object.GetAll().ToList();
-            Assert.IsNotNull(teams);
             Assert.AreEqual(InMemoryDatabase.Count, teams.Count);
             for (int i = 0; i < InMemoryDatabase.Count; i++)
             {
