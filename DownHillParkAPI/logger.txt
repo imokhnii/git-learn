@@ -656,3 +656,42 @@ Entered Competition Controller
 Got by id Competition: 1
 Entered Account Controller
 Logged in User: 0ab0d043-cf37-4c7a-a9ad-73ce137301af
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Account Controller
+User password validation failed: PasswordTooShort;PasswordRequiresNonAlphanumeric;PasswordRequiresLower;PasswordRequiresUpper.
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Account Controller
+User password validation failed: PasswordTooShort;PasswordRequiresNonAlphanumeric;PasswordRequiresLower;PasswordRequiresUpper.
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Account Controller
+User password validation failed: PasswordTooShort;PasswordRequiresNonAlphanumeric;PasswordRequiresLower;PasswordRequiresUpper.
+An unhandled exception has occurred while executing the request.
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Account Controller
+User password validation failed: PasswordTooShort;PasswordRequiresNonAlphanumeric;PasswordRequiresLower;PasswordRequiresUpper.
+An unhandled exception has occurred while executing the request.
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Account Controller
+User password validation failed: PasswordTooShort;PasswordRequiresNonAlphanumeric;PasswordRequiresLower;PasswordRequiresUpper.
+An unhandled exception has occurred while executing the request.
+Entered Account Controller
+User password validation failed: PasswordTooShort;PasswordRequiresNonAlphanumeric;PasswordRequiresLower;PasswordRequiresUpper.
+An unhandled exception has occurred while executing the request.
+Entered Account Controller
+User password validation failed: PasswordTooShort;PasswordRequiresNonAlphanumeric;PasswordRequiresLower;PasswordRequiresUpper.
+An unhandled exception has occurred while executing the request.
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Account Controller
+User password validation failed: PasswordTooShort;PasswordRequiresNonAlphanumeric;PasswordRequiresLower;PasswordRequiresUpper.

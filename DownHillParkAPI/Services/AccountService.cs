@@ -41,6 +41,16 @@ namespace DownHillParkAPI.Services
                 await _userManager.AddToRolesAsync(newUser, new[] { "User" });
                 return newUser;
             }
+            if (result.Succeeded == false)
+            {
+                var errors = result.Errors;
+                string errorString = null;
+                foreach (IdentityError error in errors)
+                {
+                    errorString += error.Code + "\n" + error.Description + "\n";
+                }
+                throw new RegisterFailedException(errorString);
+            }
             return null;
         }
 
