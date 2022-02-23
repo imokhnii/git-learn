@@ -49,7 +49,7 @@ namespace DownHillParkAPI.Services
                 {
                     errorString += error.Code + "\n" + error.Description + "\n";
                 }
-                throw new RegisterFailedException(errorString);
+                throw new CustomException(errorString);
             }
             return null;
         }

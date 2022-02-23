@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "55C2O0aT+ut28Kp8FATMFcrfWGpRAWNJBe6FtrTclPj/MRz9UCmGUsBBXOebKrT+aaYEOs6EHgTssQja4A4oiA==",
+  "dgSpecHash": "CbvPnM9wtYHuLXuz2ICnmeN/TNb4uwqZ2y1tkGrIQxmZ5Tzlmm7ef2fU6nrcoXcpKr/evSf39M8SQ2ZlFYi9mQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\oleks\\Desktop\\DHParkAPI\\DownHillParkAPI\\DownHillParkAPI.csproj",
   "expectedPackageFiles": [
@@ -76,6 +76,7 @@
     "C:\\Users\\oleks\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\oleks\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",
     "C:\\Users\\oleks\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\oleks\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.11.1\\microsoft.visualstudio.azure.containers.tools.targets.1.11.1.nupkg.sha512",
     "C:\\Users\\oleks\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration\\5.0.2\\microsoft.visualstudio.web.codegeneration.5.0.2.nupkg.sha512",
     "C:\\Users\\oleks\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.contracts\\5.0.2\\microsoft.visualstudio.web.codegeneration.contracts.5.0.2.nupkg.sha512",
     "C:\\Users\\oleks\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.core\\5.0.2\\microsoft.visualstudio.web.codegeneration.core.5.0.2.nupkg.sha512",

@@ -695,3 +695,34 @@ Hosting environment: Development
 Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
 Entered Account Controller
 User password validation failed: PasswordTooShort;PasswordRequiresNonAlphanumeric;PasswordRequiresLower;PasswordRequiresUpper.
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Bike Controller
+Created Bike: 1
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Bike Controller
+Created Bike: 2
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI
+Entered Bike Controller
+Got all bikes
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\oleks\Desktop\DHParkAPI\DownHillParkAPI

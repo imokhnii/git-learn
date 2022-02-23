@@ -29,7 +29,7 @@ namespace DownHillParkAPI.Infrastructure
                 var responseModel = ApiResponse<string>.Fail(error.Message);
                 switch (error)
                 {
-                    case RegisterFailedException e:
+                    case CustomException e:
                         // custom application error
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
